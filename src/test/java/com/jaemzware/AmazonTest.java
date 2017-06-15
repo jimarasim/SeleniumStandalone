@@ -23,6 +23,8 @@ public class AmazonTest
 {
     private WebDriver driver = null;
     private final String accountsMenuId = "nav-link-accountList";
+    private final String firstGiftXpath = "//*[@id=\"infinite-scroll-page-0\"]/ul/il[1]/a";
+    private final String giftTitleId = "title";
 
     @BeforeClass
     public static void BeforeClass(){
@@ -37,7 +39,12 @@ public class AmazonTest
     }
 
     //THIS TEST DEMONSTRATES THE FOLLOWING SELENIUM FUNCTIONALITY:
-    //1. MOUSE OVER
+    //. LOADING A WEB PAGE
+    //. FINDING AN ELEMENT BY ITS ID
+    //. HOVERING OVER AN ELEMENT
+    //. WAITING FOR A LINK WITH SPECIFIC TEXT TO BE VISIBLE
+    //. WAITING FOR AN ELEMENT WITH A SPECIFIC XPATH TO BE VISIBLE
+    //. WAITING FOR AN ELEMENT WITH A SPECIFIC ID TO BE VISIBLE
     @Test
     public void SimpleSeleniumTestForAmazon() throws Exception{
         //load the amazon site
@@ -49,13 +56,29 @@ public class AmazonTest
         //get a webelement we can mouse over
         WebElement accountsMenu = driver.findElement(By.id(accountsMenuId));
 
-        //mouse over the accounts menu and click "Find a Gift"
+        //hover over the accounts menu
         Actions action = new Actions(driver);
-        action.moveToElement(accountsMenu).moveToElement(driver.findElement(By.linkText("Find a Gift"))).click().build().perform();
+        action.moveToElement(accountsMenu).build().perform();
 
-        Thread.sleep(10000);
+        //wait for the find a gift option to appear in the menu
+        WebElement findAGiftElement = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(By.linkText("Find a Gift")));
 
+        //move to the find a gift option carefully from the last action and click it
+        action.moveToElement(findAGiftElement).click().build().perform();
 
+        //wait for the first gift to appear
+        WebElement firstGiftElement = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(firstGiftXpath)));
+
+        //click the first gift
+        firstGiftElement.click();
+
+        //wait for the gift title to appear
+        WebElement giftTitleElement = (new WebDriverWait(driver, 10))
+                .until(ExpectedConditions.elementToBeClickable(By.id(giftTitleId)));
+
+        System.out.println(giftTitleElement.getText());
     }
 
     @After
