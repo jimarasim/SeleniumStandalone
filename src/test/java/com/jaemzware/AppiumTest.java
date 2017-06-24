@@ -41,6 +41,7 @@ public class AppiumTest {
         Assert.assertTrue(driver.findElements(By.id("phonenumber")).size()==1);
 
         WebElement phoneNumber = driver.findElement(By.id("phonenumber"));
+        phoneNumber.click();
         phoneNumber.sendKeys("2063727265");
 
         Assert.assertTrue(driver.findElements(By.id("phonewordpicker")).size()==1);
@@ -55,6 +56,19 @@ public class AppiumTest {
         pickerWheel1.sendKeys("b0m");
         pickerWheel2.sendKeys("esb");
         pickerWheel3.sendKeys("rank");
+
+        Assert.assertTrue(phoneNumber.getText().equals("2063727265"));
+
+        Assert.assertTrue(driver.findElements(By.id("Delete")).size()==1);
+
+        WebElement deleteKey = driver.findElement(By.id("Delete"));
+
+        for(int i=0;i<10;i++) {
+            deleteKey.click();
+        }
+
+        Assert.assertTrue(phoneNumber.getText().equals("10 Digit Phone Number"));
+
     }
 
     @After
@@ -64,3 +78,21 @@ public class AppiumTest {
     }
 
 }
+
+/*
+{
+  "app": "/Users/jameskarasim/Desktop/Digitease/PhoneWords-iPhone 6s.ipa",
+  "udid": "e4bd336879e62840d7750c0e8f989673c167bcfc",
+  "platformName": "iOS",
+  "deviceName": "iPhone 6s",
+  "automationName": "XCUITest",
+  "platformVersion": "10.3.2"
+}
+
+{
+  "platformName": "iOS",
+  "platformVersion": "10.2",
+  "deviceName": "iPhone Simulator",
+  "app": "/Users/jameskarasim/Desktop/Digitease.app"
+}
+ */
