@@ -18,22 +18,10 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class AppTest
+public class AppTest extends BaseSeleniumTest
 {
-    private WebDriver driver = null;
-
-    @BeforeClass
-    public static void BeforeClass(){
-        //DOWNLOAD CHROMEDRIVER FROM http://chromedriver.storage.googleapis.com/index.html AND PLACE IN PROJECT DIRECTORY
-        System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
-    }
-
-    @Before
-    public void BeforeTest(){
-        //Before each test, launch a new Chrome Browser
-        driver = new ChromeDriver();
-    }
-
+    private String searchTextBoxId = "lst-ib";
+    private String searchResultsXpath = "//div[@id='rso']//h3/a";
     //THIS TEST DEMONSTRATES THE FOLLOWING SELENIUM FUNCTIONALITY:
     //. LOADING A WEB PAGE
     //. ASSERTING AN ELEMENT IS PRESENT
@@ -49,10 +37,10 @@ public class AppTest
         driver.get("https://google.com");
 
         //assert that the search text box exists
-        Assert.assertTrue(driver.findElements(By.id("lst-ib")).size()==1);
+        Assert.assertTrue(driver.findElements(By.id(searchTextBoxId)).size()==1);
 
         //get a webelement for the search text box
-        WebElement googleSearchTextBox = driver.findElement(By.id("lst-ib"));
+        WebElement googleSearchTextBox = driver.findElement(By.id(searchTextBoxId));
 
         //type in a search string
         googleSearchTextBox.sendKeys("restaurants in west seattle");
@@ -65,10 +53,10 @@ public class AppTest
                 .until(ExpectedConditions.elementToBeClickable(By.id("resultStats")));
 
         //assert results are available
-        Assert.assertTrue(driver.findElements(By.xpath("//div[@id='rso']//h3/a")).size()>0);
+        Assert.assertTrue(driver.findElements(By.xpath(searchResultsXpath)).size()>0);
 
         //get webelements for the results
-        List<WebElement> results = driver.findElements(By.xpath("//div[@id='rso']//h3/a"));
+        List<WebElement> results = driver.findElements(By.xpath(searchResultsXpath));
 
         //print out the urls
         for(WebElement e:results){
@@ -89,10 +77,4 @@ public class AppTest
         Assert.assertTrue(driver.getCurrentUrl().equals(firstResultUrl));
     }
 
-    @After
-    public void AfterTest(){
-        //After each test, destroy the Chrome Browser
-        driver.quit();
-        driver = null;
-    }
 }

@@ -19,24 +19,11 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class AmazonTest
+public class AmazonTest extends BaseSeleniumTest
 {
-    private WebDriver driver = null;
     private final String accountsMenuId = "nav-link-accountList";
     private final String firstGiftXpath = "//*[@id=\"infinite-scroll-page-0\"]/ul/il[1]/a";
     private final String giftTitleId = "title";
-
-    @BeforeClass
-    public static void BeforeClass(){
-        //DOWNLOAD CHROMEDRIVER FROM http://chromedriver.storage.googleapis.com/index.html AND PLACE IN PROJECT DIRECTORY
-        System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
-    }
-
-    @Before
-    public void BeforeTest(){
-        //Before each test, launch a new Chrome Browser
-        driver = new ChromeDriver();
-    }
 
     //THIS TEST DEMONSTRATES THE FOLLOWING SELENIUM FUNCTIONALITY:
     //. LOADING A WEB PAGE
@@ -81,10 +68,4 @@ public class AmazonTest
         System.out.println(giftTitleElement.getText());
     }
 
-    @After
-    public void AfterTest(){
-        //After each test, destroy the Chrome Browser
-        driver.quit();
-        driver = null;
-    }
 }
