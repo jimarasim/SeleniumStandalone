@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends BaseSeleniumTest
+public class GoogleSearchTest extends BaseSeleniumTest
 {
     //THIS TEST DEMONSTRATES USING THE PAGE OBJECT MODEL TO PERFORM A GOOGLE SEARCH
     @Test
@@ -18,7 +18,9 @@ public class AppTest extends BaseSeleniumTest
 
         resultsPage.PrintOutResults();
 
-        resultsPage.ClickFirstResult();
+        BasePageObject firstPage = resultsPage.ClickFirstResult();
+
+        firstPage.PrintElements();
     }
 
 }
