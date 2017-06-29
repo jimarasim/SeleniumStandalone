@@ -1,6 +1,6 @@
 package com.jaemzware;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * Unit test for simple App.

@@ -21,6 +21,9 @@ public class CraigslistResultsPage extends BasePageObject {
     @FindBy(xpath="//a[@title='next page']")
     WebElement nextPageLink;
 
+    @FindBy(xpath="//li[@class='result-row']/p/a[1]")
+    WebElement firstResult;
+
     public CraigslistResultsPage(WebDriver driver){
         super(driver);
 
@@ -34,6 +37,16 @@ public class CraigslistResultsPage extends BasePageObject {
         }
 
         return this;
+    }
+
+    public CraigslistPostPage ClickFirstResult() throws Exception{
+        if(searchResults.size() < 1){
+            throw new Exception("THERE ARE NO SEARCH RESULTS");
+        }
+
+        firstResult.click();
+
+        return new CraigslistPostPage(driver);
     }
 
 }
