@@ -12,6 +12,12 @@ public class CraigslistViewFirstResultTest extends BaseSeleniumTest{
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
         CraigslistResultsPage resultsPage = searchPage.PerformSearch("skateboard");
         CraigslistPostPage postPage = resultsPage.ClickFirstResult();
-        ScreenShot();
+    }
+
+    @Test
+    public void ViewFirstResultTestToo() throws Exception{
+        driver.get("https://seattle.craigslist.org");
+        CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
+        searchPage.PerformSearch("skateboard").ClickFirstResult();
     }
 }
