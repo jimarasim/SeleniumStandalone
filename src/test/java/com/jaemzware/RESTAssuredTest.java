@@ -1,44 +1,56 @@
 package com.jaemzware;
 
-import org.junit.Test;
+import io.restassured.RestAssured;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.hasSize;
+
 
 /**
  * Created by jameskarasim on 6/16/17.
  */
 public class RESTAssuredTest {
 
+    String githubAccessSecret = "Git8Hub";
+    String githubAccessToken = "jimarasim";
 
-    //THIS TEST USES RESTASSURED TO VERIFY THE RESPONSE BODY HAS VALUES EQUAL TO WHAT'S EXPECTED
+    @BeforeClass
+    public void initPath() {
+
+        RestAssured.baseURI = "https://api.github.com";
+    }
+
+
+    //EQUALTO
     @Test
     public void GitUsersJSONTest() throws Exception{
         when().
-                get("https://api.github.com/users/jimarasim").
+                get("/users/jimarasim").
                 then().
                 assertThat().statusCode(200).
-                assertThat().header("Server","GitHub.com").
+                header("Server",equalTo("GitHub.com")).
                 body("login",equalTo("jimarasim")).
                 body("location",equalTo("Seattle")).
-                log().body();
+                log().all();
 
     }
 
-    @Test
-    public void GitUserLoginJSONTest() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/user").then().statusCode(200).log().body();
-    }
-
+    //EXTRACT
     @Test
     public void GitReposJSONTest() throws Exception{
         List<String> repoUrls = when().
-                get("https://api.github.com/users/facebook/repos").
+                get("/users/facebook/repos").
                 then().
                 assertThat().statusCode(200).extract().path("html_url");
 
@@ -47,16 +59,26 @@ public class RESTAssuredTest {
         }
     }
 
+    //LOGIN
     @Test
-    public void GitPrivateReposJSONTest() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/user/repos").then().statusCode(200).log().body();
-
+    public void GitUserLoginJSONTest() throws Exception{
+        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user").then().statusCode(200).log().body();
     }
 
+    @Test
+    public void GitPrivateReposJSONTest() throws Exception{
+        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user/repos").then().statusCode(200).log().body();
+    }
 
     @Test
+    public void GitPrivateReposSeleniumStandaloneCommitsLog() throws Exception{
+        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).log().body();
+    }
+
+    //LOGIN AND EXTRACT
+    @Test
     public void GitPrivateReposExtractJSONTest() throws Exception{
-        List<String> privateRepoUrls = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/user/repos").then().statusCode(200).extract().path("html_url");
+        List<String> privateRepoUrls = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user/repos").then().statusCode(200).extract().path("html_url");
 
         for(String repo:privateRepoUrls){
             System.out.println(repo);
@@ -64,14 +86,8 @@ public class RESTAssuredTest {
     }
 
     @Test
-    public void GitPrivateReposSeleniumStandaloneCommitsLog() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).log().body();
-
-    }
-
-    @Test
     public void GitPrivateReposSeleniumStandaloneCommitsExtractJSONTest() throws Exception{
-        List<String> commitMessages = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).extract().path("commit.message");
+        List<String> commitMessages = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).extract().path("commit.message");
 
         for(String commit:commitMessages){
             System.out.println(commit);
@@ -81,25 +97,51 @@ public class RESTAssuredTest {
 
     @Test
     public void GitPrivateReposBoardScratchExtractJSONTest() throws Exception{
-        List<String> Xs = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("https://api.github.com/repos/jimarasim/Board/branches").then().statusCode(200).extract().path("name");
+        List<String> Xs = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/Board/branches").then().statusCode(200).extract().path("name");
 
         for(String x:Xs){
             System.out.println(x);
         }
     }
 
-    //THIS TEST USES RESTASSURED TO VERIFY THE RESPONSE HAS MULTIPLIER VALUES 2, 3, 4, AND 5
+    //FINDALL and LENGTH()
+    //it IS A RESERVED WORD IN GROOVY
     @Test
-    public void LottoJSONTest() throws Exception{
-        when().
-                get("http://data.ny.gov/resource/d6yy-54nr.json").
-                then().
-                assertThat().statusCode(200).
-                body("multiplier",hasItems("2","3","4","5")).
-                log().body();
+    public void GitFindAllCommitMessagesLessThan20Characters() throws Exception{
+        List<String> commitMessages = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumCodeBase/commits").then().extract().path("commit.message.findAll{it.length() < 20}");
+
+        for(String commit:commitMessages){
+            System.out.println(commit);
+        }
     }
 
-    String githubAccessSecret = "Git8Hub";
-    String githubAccessToken = "jimarasim";
+    //PATHPARAM WITH DATA PROVIDER
+    @DataProvider(name = "repo")
+    public Object[][] createRepoData() {
+        return new Object[][] {
+                { "Board" },
+                { "SeleniumCodeBase" },
+                { "SeleniumStandalone" }
+        };
+    }
+    @Test(dataProvider = "repo")
+    public void GitPrivateReposPathparamCommitsLog(String repo) throws Exception{
+        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).pathParam("repo",repo).when().get("/repos/jimarasim/{repo}").then().statusCode(200).log().body();
+    }
+
+    //RESPONSE TIME
+    @Test
+    public void GitUsersTimedJSONTest() throws Exception{
+        when().
+                get("/users/jimarasim").
+                then().
+                assertThat().statusCode(200).
+                header("Server",equalTo("GitHub.com")).
+                body("login",equalTo("jimarasim")).
+                body("location",equalTo("Seattle")).
+                time(lessThan(1500L), TimeUnit.MILLISECONDS);
+
+    }
+
 
 }
