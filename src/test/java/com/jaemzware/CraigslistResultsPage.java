@@ -7,7 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.NoSuchElementException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +49,37 @@ public class CraigslistResultsPage extends BasePageObject {
         firstResult.click();
 
         return new CraigslistPostPage(driver);
+    }
+
+
+    public CraigslistResultsPage ClickNextLink(){
+        if(IsElementEnabled(nextPageLink)) {
+
+            final String oldUrl = driver.getCurrentUrl();
+
+            nextPageLink.click();
+
+            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver d) {
+                    return !driver.getCurrentUrl().equals(oldUrl);
+                }
+            });
+        }
+
+        return this;
+    }
+
+    public List<String> GetResultUrls(){
+        List<String> allResultUrls = new ArrayList<String>();
+        do{
+            for(WebElement w:searchResults){
+                allResultUrls.add(w.getAttribute("href"));
+            }
+            ClickNextLink();
+        }while(IsElementEnabled(nextPageLink));
+
+        return allResultUrls;
     }
 
 }

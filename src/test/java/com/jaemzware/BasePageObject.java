@@ -1,6 +1,7 @@
 package com.jaemzware;
 
 import org.junit.Assert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,5 +31,18 @@ public class BasePageObject {
         }
 
         return this;
+    }
+
+    public boolean IsElementEnabled(WebElement element){
+        try {
+            if(element.isEnabled() && element.isDisplayed()) {
+                return true;
+            }
+            else{
+                return false;
+            }
+        }catch(NoSuchElementException nsex){
+            return false;
+        }
     }
 }

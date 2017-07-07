@@ -32,13 +32,21 @@ public class RESTAssuredTest {
     }
 
 
+    //POST
+    @Test
+    public void GitUserBlogPost() throws Exception{
+        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().body("{\"blog\":\"https://seattlerules.com\"}").post("/user").then().log().all();
+
+    }
+
+
     //EQUALTO
     @Test
     public void GitUsersJSONTest() throws Exception{
         when().
                 get("/users/jimarasim").
                 then().
-                assertThat().statusCode(200).
+                statusCode(200).
                 header("Server",equalTo("GitHub.com")).
                 body("login",equalTo("jimarasim")).
                 body("location",equalTo("Seattle")).
@@ -52,7 +60,7 @@ public class RESTAssuredTest {
         List<String> repoUrls = when().
                 get("/users/facebook/repos").
                 then().
-                assertThat().statusCode(200).extract().path("html_url");
+                statusCode(200).extract().path("html_url");
 
         for(String repo:repoUrls){
             System.out.println(repo);
