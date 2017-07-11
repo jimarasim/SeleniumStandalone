@@ -10,14 +10,8 @@ public class CraigslistViewFirstResultTest extends BaseSeleniumTest{
     public void ViewFirstResultTest() throws Exception{
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
-        CraigslistResultsPage resultsPage = searchPage.PerformSearch("skateboard");
+        CraigslistResultsPage resultsPage = searchPage.PerformSearch("2011 honda civic");
         CraigslistPostPage postPage = resultsPage.ClickFirstResult();
-    }
-
-    @Test
-    public void ViewFirstResultTestToo() throws Exception{
-        driver.get("https://seattle.craigslist.org");
-        CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
-        searchPage.PerformSearch("skateboard").ClickFirstResult();
+        postPage.PrintResultDetails();
     }
 }

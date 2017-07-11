@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.Augmenter;
 import org.testng.annotations.*;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,12 +24,18 @@ public class BaseSeleniumTest {
         WINDOWS, MAC, UNIX
     }
 
+    PrintWriter writer = null;
+
     @BeforeMethod
-    public void BeforeTest(){
+    public void BeforeTest() throws Exception{
         //Before each test, launch a new Chrome Browser
         System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
         driver = new ChromeDriver();
         driver = new Augmenter().augment(driver); //for screenshots
+
+        //open a new file for writing
+        writer = new PrintWriter("index.htm", "UTF-8");
+        writer.write("<html><head></head><body>");
     }
 
     @AfterMethod
@@ -36,6 +43,11 @@ public class BaseSeleniumTest {
         //After each test, destroy the Chrome Browser
         driver.quit();
         driver = null;
+
+        //close file report
+        writer.write("</body></html>");
+        writer.flush();
+        writer.close();
     }
 
     protected String ScreenShot() {

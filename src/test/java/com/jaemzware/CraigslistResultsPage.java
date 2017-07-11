@@ -72,10 +72,24 @@ public class CraigslistResultsPage extends BasePageObject {
 
     public List<String> GetResultUrls(){
         List<String> allResultUrls = new ArrayList<String>();
+
+        //check if max results was specified with -DaNumber
+        int maxResults = 0;
+        if(System.getProperty("aNumber")!=null){
+            maxResults = Integer.parseInt(System.getProperty("aNumber"));
+        }
+
+        //collect all result urls
         do{
             for(WebElement w:searchResults){
                 allResultUrls.add(w.getAttribute("href"));
             }
+
+            //stop if we have more than a max results specified
+            if(maxResults>0 && allResultUrls.size()>=maxResults){
+                break;
+            }
+
             ClickNextLink();
         }while(IsElementEnabled(nextPageLink));
 

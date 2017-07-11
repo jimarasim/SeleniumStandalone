@@ -50,6 +50,7 @@ public class RESTAssuredTest {
                 header("Server",equalTo("GitHub.com")).
                 body("login",equalTo("jimarasim")).
                 body("location",equalTo("Seattle")).
+                time(lessThan(1000L)).
                 log().all();
 
     }
