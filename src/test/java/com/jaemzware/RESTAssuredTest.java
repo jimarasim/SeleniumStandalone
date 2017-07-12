@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +66,7 @@ public class RESTAssuredTest {
 
     //EXTRACT
     @Test
-    public void GitReposJSONTest() throws Exception{
+    public void GitReposExtractAllJSONTest() throws Exception{
         List<String> repoUrls = when().
                 get("/users/facebook/repos").
                 then().
@@ -75,6 +76,18 @@ public class RESTAssuredTest {
         for(String repo:repoUrls){
             System.out.println(repo);
         }
+    }
+
+    @Test
+    public void GitReposExtractOneJSONTest() throws Exception{
+        String repoUrl = when().
+                get("/users/facebook/repos").
+                then().
+                statusCode(200).
+                extract().path("html_url[0]");
+
+        System.out.println(repoUrl);
+
     }
 
     //LOGIN
@@ -223,6 +236,46 @@ public class RESTAssuredTest {
                 body("location",equalTo("Seattle")).
                 time(lessThan(1500L), TimeUnit.MILLISECONDS);
 
+    }
+
+    //LOGIN, EXTRACT ALL REPOS, EXTRACT BRANCHES FROM EACH REPO
+    @Test
+    public void GitBranchesForAllRepos() throws Exception{
+        //extract a list of all repo urls
+        List<String> privateRepoUrls = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/user/repos").
+                then().
+                statusCode(200).
+                extract().path("html_url");
+
+        //shorten urls to the repo name only
+        List<String> privateRepoNames = new ArrayList<String>();
+        for(String repo:privateRepoUrls) {
+            String nameOnly = repo.substring(repo.lastIndexOf('/')+1);
+            privateRepoNames.add(nameOnly);
+        }
+
+        //list the branches for each repo name
+        for(String repo:privateRepoNames){
+            System.out.println(repo);
+            List<String> branches = given().
+                    auth().
+                    preemptive().
+                    basic(githubAccessToken, githubAccessSecret).
+                    pathParam("repoName",repo).
+                    when().
+                    get("/repos/jimarasim/{repoName}/branches").
+                    then().
+                    statusCode(200).
+                    extract().path("name");
+            for(String branch:branches){
+                System.out.println("--"+branch);
+            }
+        }
     }
 
 
