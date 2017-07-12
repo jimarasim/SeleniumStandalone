@@ -35,7 +35,15 @@ public class RESTAssuredTest {
     //POST
     @Test
     public void GitUserBlogPost() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().body("{\"blog\":\"https://seattlerules.com\"}").post("/user").then().log().all();
+        given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                body("{\"blog\":\"https://seattlerules.com\"}").
+                post("/user").
+                then().
+                log().all();
 
     }
 
@@ -61,7 +69,8 @@ public class RESTAssuredTest {
         List<String> repoUrls = when().
                 get("/users/facebook/repos").
                 then().
-                statusCode(200).extract().path("html_url");
+                statusCode(200).
+                extract().path("html_url");
 
         for(String repo:repoUrls){
             System.out.println(repo);
@@ -71,23 +80,55 @@ public class RESTAssuredTest {
     //LOGIN
     @Test
     public void GitUserLoginJSONTest() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user").then().statusCode(200).log().body();
+        given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/user").
+                then().
+                statusCode(200).
+                log().body();
     }
 
     @Test
     public void GitPrivateReposJSONTest() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user/repos").then().statusCode(200).log().body();
+        given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/user/repos").
+                then().
+                statusCode(200).
+                log().body();
     }
 
     @Test
     public void GitPrivateReposSeleniumStandaloneCommitsLog() throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).log().body();
+        given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/repos/jimarasim/SeleniumStandalone/commits").
+                then().
+                statusCode(200).
+                log().body();
     }
 
     //LOGIN AND EXTRACT
     @Test
     public void GitPrivateReposExtractJSONTest() throws Exception{
-        List<String> privateRepoUrls = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/user/repos").then().statusCode(200).extract().path("html_url");
+        List<String> privateRepoUrls = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/user/repos").
+                then().
+                statusCode(200).
+                extract().path("html_url");
 
         for(String repo:privateRepoUrls){
             System.out.println(repo);
@@ -96,7 +137,15 @@ public class RESTAssuredTest {
 
     @Test
     public void GitPrivateReposSeleniumStandaloneCommitsExtractJSONTest() throws Exception{
-        List<String> commitMessages = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumStandalone/commits").then().statusCode(200).extract().path("commit.message");
+        List<String> commitMessages = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/repos/jimarasim/SeleniumStandalone/commits").
+                then().
+                statusCode(200).
+                extract().path("commit.message");
 
         for(String commit:commitMessages){
             System.out.println(commit);
@@ -106,7 +155,15 @@ public class RESTAssuredTest {
 
     @Test
     public void GitPrivateReposBoardScratchExtractJSONTest() throws Exception{
-        List<String> Xs = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/Board/branches").then().statusCode(200).extract().path("name");
+        List<String> Xs = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/repos/jimarasim/Board/branches").
+                then().
+                statusCode(200).
+                extract().path("name");
 
         for(String x:Xs){
             System.out.println(x);
@@ -117,7 +174,14 @@ public class RESTAssuredTest {
     //it IS A RESERVED WORD IN GROOVY
     @Test
     public void GitFindAllCommitMessagesLessThan20Characters() throws Exception{
-        List<String> commitMessages = given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).when().get("/repos/jimarasim/SeleniumCodeBase/commits").then().extract().path("commit.message.findAll{it.length() < 20}");
+        List<String> commitMessages = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/repos/jimarasim/SeleniumCodeBase/commits").
+                then().
+                extract().path("commit.message.findAll{it.length() < 20}");
 
         for(String commit:commitMessages){
             System.out.println(commit);
@@ -135,7 +199,16 @@ public class RESTAssuredTest {
     }
     @Test(dataProvider = "repo")
     public void GitPrivateReposPathparamCommitsLog(String repo) throws Exception{
-        given().auth().preemptive().basic(githubAccessToken, githubAccessSecret).pathParam("repo",repo).when().get("/repos/jimarasim/{repo}").then().statusCode(200).log().body();
+        given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                pathParam("repo",repo).
+                when().
+                get("/repos/jimarasim/{repo}").
+                then().
+                statusCode(200).
+                log().body();
     }
 
     //RESPONSE TIME
