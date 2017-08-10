@@ -56,7 +56,7 @@ public class RESTAssuredTest {
                 header("Server",equalTo("GitHub.com")).
                 body("login",equalTo("jimarasim")).
                 body("location",equalTo("Seattle")).
-                time(lessThan(1000L)).
+                time(lessThan(1500L)).
                 log().all();
 
     }
@@ -102,8 +102,8 @@ public class RESTAssuredTest {
     }
 
     @Test
-    public void GitPrivateReposJSONTest() throws Exception{
-        given().
+    public void GitPrivateReposDescriptionsJSONTest() throws Exception{
+        List<String> descriptions = given().
                 auth().
                 preemptive().
                 basic(githubAccessToken, githubAccessSecret).
@@ -111,7 +111,29 @@ public class RESTAssuredTest {
                 get("/user/repos").
                 then().
                 statusCode(200).
-                log().body();
+                extract().path("description");
+
+        for(String description:descriptions){
+            System.out.println(description);
+        }
+    }
+
+    @Test
+    public void GitPrivateReposWithNullDescriptionJSONTest() throws Exception{
+        List<String> nulldescriptionitems = given().
+                auth().
+                preemptive().
+                basic(githubAccessToken, githubAccessSecret).
+                when().
+                get("/user/repos").
+                then().
+                statusCode(200).
+                log().body().
+                extract().path("findAll {it.description==null}.name");
+
+        for(String name:nulldescriptionitems){
+            System.out.println(name);
+        }
     }
 
     @Test
@@ -227,6 +249,7 @@ public class RESTAssuredTest {
         when().
                 get("/users/jimarasim").
                 then().
+                log().body().
                 assertThat().statusCode(200).
                 header("Server",equalTo("GitHub.com")).
                 body("login",equalTo("jimarasim")).
