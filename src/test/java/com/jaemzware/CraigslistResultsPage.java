@@ -26,10 +26,13 @@ public class CraigslistResultsPage extends BasePageObject {
     @FindBy(xpath="//li[@class='result-row']/p/a[1]")
     WebElement firstResult;
 
+    @FindBy(xpath="//button[@class='searchbtn']")
+    WebElement searchButton;
+
     public CraigslistResultsPage(WebDriver driver){
         super(driver);
 
-        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(nextPageLink));
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(searchButton));
     }
 
     public CraigslistResultsPage PrintOutResults(){
