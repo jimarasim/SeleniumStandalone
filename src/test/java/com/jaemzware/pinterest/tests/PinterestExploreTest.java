@@ -20,6 +20,7 @@ public class PinterestExploreTest extends BaseSeleniumTest {
         //click explore button and verify articles are present
         home.clickExploreButton();
 
+        //save off a screenshot and embed it in the htm report
         String screenshotFilename = ScreenShot();
         writer.write("<br /><img src='"+screenshotFilename+"' alt='after clicking explore button' /><br />");
 

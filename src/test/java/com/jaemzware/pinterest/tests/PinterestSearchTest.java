@@ -19,6 +19,11 @@ public class PinterestSearchTest extends BaseSeleniumTest {
         //search for term
         home.searchForTerm("memes");
 
+        //save a screenshot to the htm report
+        String screenshotFilename = ScreenShot();
+        writer.write("<br /><img src='"+screenshotFilename+"' alt='after searching memes' /><br />");
+
+
         Assert.assertTrue(home.resultsListCount() > 2);
         Assert.assertTrue(home.IsHomeButtonEnabled());
         Assert.assertTrue(home.IsPButtonEnabled());

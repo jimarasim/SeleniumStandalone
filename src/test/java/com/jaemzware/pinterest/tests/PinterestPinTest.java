@@ -34,6 +34,10 @@ public class PinterestPinTest extends BaseSeleniumTest {
 
         profilePage.clickPinsButton();
 
+        //save a screenshot to the htm report
+        String screenshotFilename = ScreenShot();
+        writer.write("<br /><img src='"+screenshotFilename+"' alt='after clicking recently added pins' /><br />");
+
         viewer = profilePage.clickFirstResult();
 
         String viewerImageSrc = viewer.getResultImageSrc();
