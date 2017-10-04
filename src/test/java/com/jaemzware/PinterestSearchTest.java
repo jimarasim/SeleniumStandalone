@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 public class PinterestSearchTest extends BaseSeleniumTest{
-    @Test(groups={"pinteresttest"})
+    @Test(groups={"pinteresttest", "pinterestsearchtest"})
     public void searchTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);
         PinterestHomePage home = new PinterestHomePage(driver);
@@ -14,8 +14,15 @@ public class PinterestSearchTest extends BaseSeleniumTest{
         login.LoginIfNot();
 
         //search for term
-        home.SearchForTerm("memes");
+        home.searchForTerm("memes");
 
-        Assert.assertTrue(home.ResultsListCount() > 4);
+        Assert.assertTrue(home.resultsListCount() > 2);
+        Assert.assertTrue(home.IsHomeButtonEnabled());
+        Assert.assertTrue(home.IsPButtonEnabled());
+        Assert.assertTrue(home.IsExploreButtonEnabled());
+        Assert.assertTrue(home.IsProfileButtonEnabled());
+        Assert.assertTrue(home.IsAddPinButtonEnabled());
+        Assert.assertTrue(home.IsMoreButtonEnabled());
+        Assert.assertTrue(home.IsSearchImprovementsWrapperEnabled());
     }
 }

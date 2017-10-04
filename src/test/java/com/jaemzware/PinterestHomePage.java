@@ -22,6 +22,18 @@ public class PinterestHomePage extends BasePageObject{
     @FindBy(css="div[aria-label=Saved]")
     private WebElement profileButton;
 
+    @FindBy(css="button[aria-label='Add Pin']")
+    private WebElement addPinButton;
+
+    @FindBy(css="button[aria-label='More']")
+    private WebElement moreButton;
+
+    @FindBy(css="a.nonEuPrivacyPolicy")
+    private WebElement privacyLink;
+
+    @FindBy(xpath="//h3[contains(text(),'Explore')]")
+    private WebElement exploreHeading;
+
     @FindBy(css="div[data-grid-item=true]")
     private WebElement aResult;
 
@@ -31,7 +43,7 @@ public class PinterestHomePage extends BasePageObject{
     @FindBy(css="div[data-grid-item=true]")
     private List<WebElement> resultsList;
 
-    @FindBy(css="div._0._25._2p._2c._2i._3h._56._jz._s._3o > div.article")
+    @FindBy(css="div.article")
     private List<WebElement> articleList;
 
     @FindBy(css="input[name=q]")
@@ -43,30 +55,46 @@ public class PinterestHomePage extends BasePageObject{
     @FindBy(css="div.improvementsWrapper > div > div:nth-child(1) > div > div > div:nth-child(1) > a")
     private WebElement firstSearchImprovement;
 
-    @FindBy(css="button[aria-label='Add Pin'']")
-    private WebElement addPinButton;
-
-    @FindBy(css="button[aria-label='More']")
-    private WebElement moreButton;
-
-    @FindBy(xpath="//a[contains(text(),'Privacy')]")
-    private WebElement privacyLink;
-
     public String URL = "https://pinterest.com";
 
     public PinterestHomePage(WebDriver driver){
         super(driver);
     }
 
-    public WebElement getSearchTextbox(){
-        return searchTextbox;
-    }
+    public boolean IsHomeButtonEnabled(){return IsElementEnabled(HomeButton);}
+    public boolean IsPButtonEnabled(){return IsElementEnabled(pButton);}
+    public boolean IsExploreButtonEnabled(){return IsElementEnabled(exploreButton);}
+    public boolean IsProfileButtonEnabled(){return IsElementEnabled(profileButton);}
+    public boolean IsAddPinButtonEnabled(){return IsElementEnabled(addPinButton);}
+    public boolean IsMoreButtonEnabled(){return IsElementEnabled(moreButton);}
+    public boolean IsSearchImprovementsWrapperEnabled(){return IsElementEnabled(searchImprovementsWrapper);}
+    public boolean IsExploreHeadingEnabled(){return IsElementEnabled(exploreHeading);}
 
-    public int ResultsListCount(){
+    public int resultsListCount(){
         return resultsList.size();
     }
 
-    public void SearchForTerm(String term){
+    public int articleListCount(){
+        return articleList.size();
+    }
+
+    public void clickExploreButton(){
+        exploreButton.click();
+
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(aResult));
+    }
+
+    public PinterestProfilePage clickProfileButton(){
+        PinterestProfilePage profilePage = new PinterestProfilePage(driver);
+
+        profileButton.click();
+
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getSettingsButton()));
+
+        return profilePage;
+    }
+
+    public void searchForTerm(String term){
         searchTextbox.clear();
         searchTextbox.sendKeys(term);
         searchTextbox.sendKeys(Keys.ENTER);
@@ -93,15 +121,5 @@ public class PinterestHomePage extends BasePageObject{
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(viewerPage.getSaveButton()));
 
         return viewerPage;
-    }
-
-    public PinterestProfilePage clickProfileButton(){
-        PinterestProfilePage profilePage = new PinterestProfilePage(driver);
-
-        profileButton.click();
-
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getSettingsButton()));
-
-        return profilePage;
     }
 }

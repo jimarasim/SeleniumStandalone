@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 public class PinterestPinTest extends BaseSeleniumTest{
+
     @Test(groups={"pinteresttest", "pinterestpintest"})
     public void pinTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);
@@ -22,7 +23,7 @@ public class PinterestPinTest extends BaseSeleniumTest{
         String pinnedImageSrc = viewer.getResultImageSrc();
 
         //verify the result was pinned to the test board
-        home = viewer.closeViewer();
+        viewer.closeViewer();
 
         PinterestProfilePage profilePage = home.clickProfileButton();
 
