@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.testng.annotations.Test;
 
 public class PinterestPinTest extends BaseSeleniumTest{
-    @Test
+    @Test(groups={"pinteresttest", "pinterestpintest"})
     public void pinTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);
         PinterestHomePage home = new PinterestHomePage(driver);

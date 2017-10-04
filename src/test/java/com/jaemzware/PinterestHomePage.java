@@ -1,9 +1,6 @@
 package com.jaemzware;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -82,7 +79,14 @@ public class PinterestHomePage extends BasePageObject{
 
         int randomNum = rand.nextInt((resultsList.size() - 1) + 1) + 1;
 
-        resultsList.get(randomNum).click();
+        try {
+            resultsList.get(randomNum).click();
+        }
+        catch(WebDriverException wdx){
+            //scroll down a little bit to click below the bottom of the visible page
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 400)");
+            resultsList.get(randomNum).click();
+        }
 
         PinterestViewerPage viewerPage = new PinterestViewerPage(driver);
 

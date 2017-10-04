@@ -26,7 +26,7 @@ public class BaseSeleniumTest {
 
     PrintWriter writer = null;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
         //Before each test, launch a new Chrome Browser
         System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
@@ -41,7 +41,7 @@ public class BaseSeleniumTest {
         writer.write("<html><head></head><body>");
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void AfterTest(){
         //After each test, destroy the Chrome Browser
         driver.quit();
