@@ -54,6 +54,7 @@ public class BaseSeleniumTest {
     }
 
     protected String ScreenShot() {
+        String path="";
         String fileName = "";
 
         try {
@@ -69,11 +70,13 @@ public class BaseSeleniumTest {
             String dateStamp = dateFormat.format(date);
             // String fileName = GetOsType().equals(OsType.WINDOWS)?workingDir.replace("\\","\\\\")+
             // "\\screenshot"+dateStamp+".png":workingDir + "/screenshot"+dateStamp+".png";
-            fileName = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
-                    : workingDir + "/screenshot" + dateStamp + ".png";
+            path = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
+                    : workingDir + "/";
+
+            fileName = "screenshot" + dateStamp + ".png";
 
             // save the file
-            FileUtils.copyFile(scrFile, new File(fileName));
+            FileUtils.copyFile(scrFile, new File(path+fileName));
         } catch (Exception ex) {
             System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
         }
