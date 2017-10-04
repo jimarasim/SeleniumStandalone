@@ -1,5 +1,9 @@
-package com.jaemzware;
+package com.jaemzware.google.tests;
 
+import com.jaemzware.BasePageObject;
+import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.google.pageobjects.GoogleResultsPage;
+import com.jaemzware.google.pageobjects.GoogleSearchPage;
 import org.testng.annotations.Test;
 
 /**
@@ -8,7 +12,7 @@ import org.testng.annotations.Test;
 public class GoogleSearchTest extends BaseSeleniumTest
 {
     //THIS TEST DEMONSTRATES USING THE PAGE OBJECT MODEL TO PERFORM A GOOGLE SEARCH
-    @Test
+    @Test(groups={"googletest"})
     public void SimpleSeleniumTestForGoogle() throws Exception{
         driver.get("https://google.com");
 

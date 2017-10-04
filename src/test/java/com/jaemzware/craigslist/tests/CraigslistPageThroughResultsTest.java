@@ -1,10 +1,11 @@
-package com.jaemzware;
+package com.jaemzware.craigslist.tests;
 
+import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.craigslist.pageobjects.CraigslistPostPage;
+import com.jaemzware.craigslist.pageobjects.CraigslistResultsPage;
+import com.jaemzware.craigslist.pageobjects.CraigslistSearchPage;
 import org.testng.annotations.Test;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
 
 
-    @Test
+    @Test(groups={"craigslisttest","craigslistpagethroughresultstest"})
     public void CraigslistPageThroughResults() throws Exception{
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);

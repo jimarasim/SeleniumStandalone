@@ -1,4 +1,4 @@
-package com.jaemzware;
+package com.jaemzware.misc;
 
 import io.restassured.RestAssured;
 import org.testng.annotations.BeforeClass;

@@ -24,7 +24,7 @@ public class BaseSeleniumTest {
         WINDOWS, MAC, UNIX
     }
 
-    PrintWriter writer = null;
+    public PrintWriter writer = null;
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
@@ -77,8 +77,6 @@ public class BaseSeleniumTest {
         } catch (Exception ex) {
             System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
         }
-
-        System.out.println("SCREENSHOT:" + fileName);
 
         return fileName;
     }

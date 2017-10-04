@@ -1,7 +1,6 @@
-package com.jaemzware;
+package com.jaemzware.google.pageobjects;
 
-import org.junit.Assert;
-import org.openqa.selenium.By;
+import com.jaemzware.BasePageObject;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by jameskarasim on 6/28/17.
  */
-public class GoogleSearchPage extends BasePageObject{
+public class GoogleSearchPage extends BasePageObject {
     @FindBy(id="lst-ib")
     private WebElement searchTextBox;
 

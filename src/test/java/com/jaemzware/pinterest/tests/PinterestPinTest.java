@@ -1,9 +1,14 @@
-package com.jaemzware;
+package com.jaemzware.pinterest.tests;
 
+import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.pinterest.pageobjects.PinterestHomePage;
+import com.jaemzware.pinterest.pageobjects.PinterestLoginPage;
+import com.jaemzware.pinterest.pageobjects.PinterestProfilePage;
+import com.jaemzware.pinterest.pageobjects.PinterestViewerPage;
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
-public class PinterestPinTest extends BaseSeleniumTest{
+public class PinterestPinTest extends BaseSeleniumTest {
 
     @Test(groups={"pinteresttest", "pinterestpintest"})
     public void pinTest() throws Exception{

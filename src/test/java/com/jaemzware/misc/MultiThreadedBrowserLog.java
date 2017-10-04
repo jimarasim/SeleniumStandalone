@@ -1,4 +1,4 @@
-package com.jaemzware;
+package com.jaemzware.misc;
 
 import org.junit.Before;
 import org.junit.BeforeClass;

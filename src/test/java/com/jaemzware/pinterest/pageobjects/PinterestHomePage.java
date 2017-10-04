@@ -1,5 +1,6 @@
-package com.jaemzware;
+package com.jaemzware.pinterest.pageobjects;
 
+import com.jaemzware.BasePageObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.Random;
 
-public class PinterestHomePage extends BasePageObject{
+public class PinterestHomePage extends BasePageObject {
 
     @FindBy(xpath="//div[contains(text(),'Home')]")
     private WebElement HomeButton;

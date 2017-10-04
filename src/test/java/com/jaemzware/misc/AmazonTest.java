@@ -1,5 +1,6 @@
-package com.jaemzware;
+package com.jaemzware.misc;
 
+import com.jaemzware.BaseSeleniumTest;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
