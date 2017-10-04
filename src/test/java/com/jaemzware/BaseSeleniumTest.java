@@ -33,6 +33,9 @@ public class BaseSeleniumTest {
         driver = new ChromeDriver();
         driver = new Augmenter().augment(driver); //for screenshots
 
+        //maximize window
+        driver.manage().window().maximize();
+
         //open a new file for writing
         writer = new PrintWriter("index.htm", "UTF-8");
         writer.write("<html><head></head><body>");
