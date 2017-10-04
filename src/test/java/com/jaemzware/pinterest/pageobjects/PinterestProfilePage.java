@@ -24,14 +24,14 @@ public class PinterestProfilePage extends BasePageObject {
         super(driver);
     }
 
-    public WebElement getSettingsButton() {
-        return settingsButton;
+    public WebElement getFirstResult() {
+        return firstResult;
     }
 
     public void clickPinsButton(){
         pinsButton.click();
 
-        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(savePinButton));
+        (new WebDriverWait(driver,20)).until(ExpectedConditions.elementToBeClickable(savePinButton));
     }
 
     public PinterestViewerPage clickFirstResult(){
@@ -39,7 +39,7 @@ public class PinterestProfilePage extends BasePageObject {
 
         PinterestViewerPage viewerPage = new PinterestViewerPage(driver);
 
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(viewerPage.getSaveButton()));
+        (new WebDriverWait(driver, 20)).until(ExpectedConditions.elementToBeClickable(viewerPage.getSaveButton()));
 
         return viewerPage;
     }

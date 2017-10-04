@@ -90,7 +90,7 @@ public class PinterestHomePage extends BasePageObject {
 
         profileButton.click();
 
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getSettingsButton()));
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getFirstResult()));
 
         return profilePage;
     }
@@ -106,14 +106,14 @@ public class PinterestHomePage extends BasePageObject {
     public PinterestViewerPage pickRandomResult(){
         Random rand = new Random();
 
-        int randomNum = rand.nextInt((resultsList.size() - 1) + 1) + 1;
+        int randomNum = rand.nextInt((4 - 1) + 1) + 1;
 
         try {
             resultsList.get(randomNum).click();
         }
         catch(WebDriverException wdx){
             //scroll down a little bit to click below the bottom of the visible page
-            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 400)");
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 500)");
             resultsList.get(randomNum).click();
         }
 
