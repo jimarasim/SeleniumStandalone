@@ -1,9 +1,7 @@
 package com.jaemzware.misc;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -22,7 +20,7 @@ public class AppiumTest {
 
     public static WebDriver driver = null;
 
-    @Before
+    @BeforeMethod
     public void BeforeTest() throws Exception{
         //Before each test, launch a new Chrome Browser
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -71,7 +69,7 @@ public class AppiumTest {
 
     }
 
-    @After
+    @AfterMethod
     public void AfterTest(){
         driver.quit();
         driver = null;

@@ -1,8 +1,6 @@
 package com.jaemzware.misc;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.testng.annotations.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,7 +38,7 @@ public class MultiThreadedBrowserLog extends Thread{
         System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
     }
 
-    @Before
+    @BeforeMethod
     public void BeforeTest(){
 
         //CHECK FOR PARAMETERS

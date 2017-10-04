@@ -3,7 +3,7 @@ package com.jaemzware.pinterest.tests;
 import com.jaemzware.BaseSeleniumTest;
 import com.jaemzware.pinterest.pageobjects.PinterestHomePage;
 import com.jaemzware.pinterest.pageobjects.PinterestLoginPage;
-import org.junit.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PinterestSearchTest extends BaseSeleniumTest {
