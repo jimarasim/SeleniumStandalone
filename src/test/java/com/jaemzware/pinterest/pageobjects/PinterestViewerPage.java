@@ -19,7 +19,7 @@ public class PinterestViewerPage extends BasePageObject {
     @FindBy(xpath="//div[contains(text(),'Saved to')]")
     private WebElement savedToMessage;
 
-    @FindBy(css="div.flashlightEnabledContent > div > div > img")
+    @FindBy(css="div._0._25._2p._2i > img")
     private WebElement resultImage;
 
     @FindBy(css="button.Button.borderless.close.visible")
