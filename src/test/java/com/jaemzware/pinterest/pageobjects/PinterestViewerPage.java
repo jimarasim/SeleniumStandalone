@@ -25,9 +25,15 @@ public class PinterestViewerPage extends BasePageObject {
     @FindBy(css="button.Button.borderless.close.visible")
     private WebElement closeButton;
 
+    @FindBy(css="button[aria-label='Next Pin']")
+    private WebElement nextPinButton;
+
     public PinterestViewerPage(WebDriver driver){
         super(driver);
     }
+
+    public boolean IsSaveButtonEnabled(){return IsElementEnabled(saveButton);}
+    public boolean IsCloseButtonEnabled(){return IsElementEnabled(closeButton);}
 
     public WebElement getSaveButton(){
         return saveButton;
@@ -56,6 +62,12 @@ public class PinterestViewerPage extends BasePageObject {
                 return !IsElementEnabled(saveButton);
             }
         });
+    }
+
+    public void clickNextPin(){
+        nextPinButton.click();
+
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(resultImage));
     }
 
 }

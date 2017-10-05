@@ -95,6 +95,16 @@ public class PinterestHomePage extends BasePageObject {
         return profilePage;
     }
 
+    public PinterestViewerPage clickFirstResult(){
+        PinterestViewerPage viewerPage = new PinterestViewerPage(driver);
+
+        aResult.click();
+
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(viewerPage.getSaveButton()));
+
+        return viewerPage;
+    }
+
     public void searchForTerm(String term){
         searchTextbox.clear();
         searchTextbox.sendKeys(term);
