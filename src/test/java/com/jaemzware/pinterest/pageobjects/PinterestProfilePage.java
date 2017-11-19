@@ -14,11 +14,14 @@ public class PinterestProfilePage extends BasePageObject {
     @FindBy(xpath="//div[@class='tabText' and contains(text(),'Pins')]")
     WebElement pinsButton;
 
-    @FindBy(xpath="//div[contains(text(),'Save Pin')]")
-    WebElement savePinButton;
+    @FindBy(xpath="//div[contains(text(),'Create Pin')]")
+    WebElement createPinButton;
 
     @FindBy(css="div[data-grid-item=true]:nth-child(2)")
     private WebElement firstResult;
+
+    @FindBy(css="div.cardWrapper")
+    private WebElement firstBoard;
 
     public PinterestProfilePage(WebDriver driver){
         super(driver);
@@ -28,10 +31,14 @@ public class PinterestProfilePage extends BasePageObject {
         return firstResult;
     }
 
+    public WebElement getFirstBoard() {
+        return firstBoard;
+    }
+
     public void clickPinsButton(){
         pinsButton.click();
 
-        (new WebDriverWait(driver,20)).until(ExpectedConditions.elementToBeClickable(savePinButton));
+        (new WebDriverWait(driver,20)).until(ExpectedConditions.elementToBeClickable(createPinButton));
     }
 
     public PinterestViewerPage clickFirstResult(){

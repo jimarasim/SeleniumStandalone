@@ -90,7 +90,7 @@ public class PinterestHomePage extends BasePageObject {
 
         profileButton.click();
 
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getFirstResult()));
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(profilePage.getFirstBoard()));
 
         return profilePage;
     }

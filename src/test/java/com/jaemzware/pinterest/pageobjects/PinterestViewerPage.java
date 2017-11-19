@@ -19,13 +19,13 @@ public class PinterestViewerPage extends BasePageObject {
     @FindBy(xpath="//div[contains(text(),'Saved to')]")
     private WebElement savedToMessage;
 
-    @FindBy(css="div._0._25._2p._2i > img")
+    @FindBy(css="div.closeupContainer img")
     private WebElement resultImage;
 
-    @FindBy(css="button.Button.borderless.close.visible")
+    @FindBy(css="button[aria-label='Go back']")
     private WebElement closeButton;
 
-    @FindBy(css="button[aria-label='Next Pin']")
+    @FindBy(css="button[aria-label='View next item']")
     private WebElement nextPinButton;
 
     public PinterestViewerPage(WebDriver driver){
