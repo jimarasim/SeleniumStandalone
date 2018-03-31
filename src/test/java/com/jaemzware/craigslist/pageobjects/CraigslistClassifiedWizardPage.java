@@ -30,7 +30,7 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
     @FindBy(id="PostingTitle")
     WebElement postingTitleInput;
 
-    @FindBy(id="Ask")
+    @FindBy(name="price")
     WebElement postingPriceInput;
 
     @FindBy(id="GeographicArea")
@@ -84,11 +84,12 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
     @FindBy(id="auto_bodytype")
     WebElement bodyTypeSelect;
 
+    @FindBy(css="span.err")
+    WebElement errorText;
 
-
-
-
-
+    public WebElement getErrorTextElement() {
+        return errorText;
+    }
 
     public CraigslistClassifiedWizardPage(WebDriver driver){
             super(driver);
@@ -134,7 +135,7 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
         return this;
     }
 
-    public CraigslistClassifiedWizardPage fillOutAutoPostingAndContinue() {
+    public CraigslistClassifiedWizardPage fillOutPartialAutoPostingAndContinue() {
         postingTitleInput.sendKeys("Honda Civic 2010");
         postingPriceInput.sendKeys("12000");
         specificLocationInput.sendKeys("West Seattle");
@@ -156,6 +157,8 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
         (new Select(this.titleStatusSelect)).selectByValue("1");
         (new Select(this.transmissionSelect)).selectByValue("1");
         (new Select(this.bodyTypeSelect)).selectByValue("8");
+
+        continueButton.click();
 
         return this;
     }
