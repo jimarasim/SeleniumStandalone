@@ -10,6 +10,7 @@ import org.testng.Assert;
 
 public class PinterestPinTest extends BaseSeleniumTest {
 
+    //THIS TEST PINS A PIN, THEN VERIFIES IT WAS THE LAST THING PINNED TO PINS IN THE USERS PROFILE
     @Test(groups={"pinteresttest", "pinterestpintest"})
     public void pinTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);

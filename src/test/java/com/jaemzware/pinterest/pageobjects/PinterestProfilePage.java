@@ -11,7 +11,7 @@ public class PinterestProfilePage extends BasePageObject {
     @FindBy(css="button[aria-label='Edit settings']")
     private WebElement settingsButton;
 
-    @FindBy(xpath="//div[@class='tabText' and contains(text(),'Pins')]")
+    @FindBy(xpath="//div[contains(text(),'Pins')]")
     WebElement pinsButton;
 
     @FindBy(xpath="//div[contains(text(),'Create Pin')]")
