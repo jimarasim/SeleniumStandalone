@@ -18,7 +18,7 @@ public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
     public void CraigslistPageThroughResults() throws Exception{
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
-        CraigslistResultsPage resultsPage = searchPage.PerformSearch("skate");
+        CraigslistResultsPage resultsPage = searchPage.PerformSearch("melvins");
         List<String> allResultUrls = resultsPage.GetResultUrls();
 
         //check if max results was specified with -DaNumber
