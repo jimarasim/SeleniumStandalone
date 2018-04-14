@@ -10,8 +10,9 @@ import org.testng.annotations.Test;
 
 public class PinterestExploreTest extends BaseSeleniumTest {
 
+    //THIS TEST VERIFIES THE INTEGRITY OF THE EXPLORE PAGE
     @Test(groups={"pinteresttest","pinterestexploretest"})
-    public void exploreTest(){
+    public void exploreTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);
         PinterestHomePage home = new PinterestHomePage(driver);
 

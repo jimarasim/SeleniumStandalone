@@ -3,7 +3,6 @@ package com.jaemzware;
 import static com.jaemzware.Utilities.DateStamp;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.Augmenter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 

@@ -9,6 +9,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -86,5 +87,33 @@ public class Utilities {
         }
 
         return fileName;
+    }
+    
+    /**
+     * GetCommandLineCredentials
+     * 
+     * This method retrieves the username and password from the commandline, and throws an exception if either are not specified.
+     * 
+     * @return HashMap with a key for username and a key for password
+     * @throws Exception 
+     */
+    public static HashMap<String, String> GetCommandlineCredentials() throws Exception {
+        HashMap<String, String> credentials = new HashMap<String, String>();
+        
+        String username = System.getProperty("username");
+        String password = System.getProperty("password");
+        
+        if (username == null || username.isEmpty()) {
+            throw new Exception ("-Dusername PARAMETER REQUIRED FOR THIS TEST");
+        }
+        
+        if (password == null || password.isEmpty()) {
+            throw new Exception ("-Dpassword PARAMETER REQUIRED FOR THIS TEST");
+        }
+        
+        credentials.put("username", username);
+        credentials.put("password", password);
+        
+        return credentials;
     }
 }

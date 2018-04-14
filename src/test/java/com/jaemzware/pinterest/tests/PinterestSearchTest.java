@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PinterestSearchTest extends BaseSeleniumTest {
+    
+    //THIS TEST ENTERS A SEARCH TERM AND VERIFIES THE INTEGRITY OF THE RESULTANT PAGE
     @Test(groups={"pinteresttest", "pinterestsearchtest"})
     public void searchTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);

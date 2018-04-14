@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class PinterestScrollTest extends BaseSeleniumTest{
 
-
+    //THIS TEST SCROLLS DOWN THE PIN FEED, VERIFYING INTEGRITY OF ALL ELEMENTS ALONG THE WAY
     @Test(groups={"pinteresttest","pinterestscrolltest"})
      public void scrollTest() throws Exception{
         PinterestLoginPage login = new PinterestLoginPage(driver);

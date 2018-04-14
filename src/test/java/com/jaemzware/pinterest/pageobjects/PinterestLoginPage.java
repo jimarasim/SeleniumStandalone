@@ -1,6 +1,8 @@
 package com.jaemzware.pinterest.pageobjects;
 
+import static com.jaemzware.Utilities.GetCommandlineCredentials;
 import com.jaemzware.BasePageObject;
+import java.util.HashMap;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,17 +32,17 @@ public class PinterestLoginPage extends BasePageObject {
     @FindBy(xpath="//span[contains(text(),'Next')]")
     private WebElement nextButton;
 
-    private final String uid="fake@google.com";
-    private final String pwd = "password";
-
     public PinterestLoginPage(WebDriver driver){
         super(driver);
     }
 
-    public void LoginIfNot(){
+    public void LoginIfNot() throws Exception{
 
         //if the login button is found, we are not logged in
         if(IsElementEnabled(loginButton)){
+            //retrieve credentials
+            HashMap creds = GetCommandlineCredentials();
+            
             //login with the google button
             pGoogleConnectButton.click();
 
@@ -63,10 +65,10 @@ public class PinterestLoginPage extends BasePageObject {
 
             //login to google window.
             (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(googleEmail));
-            googleEmail.sendKeys(uid);
+            googleEmail.sendKeys((String)creds.get("username"));
             nextButton.click();
             (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(googlePassword));
-            googlePassword.sendKeys(pwd);
+            googlePassword.sendKeys((String)creds.get("password"));
             nextButton.click();
 
             //switch back to main window
@@ -77,4 +79,5 @@ public class PinterestLoginPage extends BasePageObject {
             (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(pSearch));
         }
     }
+     
 }
