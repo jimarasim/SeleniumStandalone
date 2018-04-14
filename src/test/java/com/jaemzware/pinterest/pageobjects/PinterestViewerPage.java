@@ -10,10 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PinterestViewerPage extends BasePageObject {
 
-    @FindBy(xpath="//div[contains(text(),'Save')]")
+    @FindBy(css="div.SaveButton")
     private WebElement saveButton;
 
-    @FindBy(xpath="//div[@role='button']//p[contains(text(),'Test')]")
+    @FindBy(xpath="//div[@role='button']//div[contains(text(),'Test')]")
     private WebElement testBoardButton;
 
     @FindBy(xpath="//div[contains(text(),'Saved to')]")
@@ -44,6 +44,8 @@ public class PinterestViewerPage extends BasePageObject {
     }
 
     public void pinToTestBoard(){
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(saveButton));
+        
         saveButton.click();
 
         (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(testBoardButton));

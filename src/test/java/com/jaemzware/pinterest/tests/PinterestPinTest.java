@@ -21,7 +21,7 @@ public class PinterestPinTest extends BaseSeleniumTest {
 
         //pick a random result and pin it to the Test board
         PinterestViewerPage viewer = home.pickRandomResult();
-
+        
         viewer.pinToTestBoard();
 
         //get the alt of the image to compare it to the latest pinned item on the profile page

@@ -15,7 +15,7 @@ public class PinterestLoginPage extends BasePageObject {
     @FindBy(css="button.GoogleConnectButton.active")
     private WebElement pGoogleConnectButton;
 
-    @FindBy(xpath="//button[contains(text(),'Log in')]")
+    @FindBy(xpath="//button/div[contains(text(),'Log in')]")
     private WebElement loginButton;
 
     @FindBy(css="input[name=q]")
@@ -69,9 +69,10 @@ public class PinterestLoginPage extends BasePageObject {
             googlePassword.sendKeys(pwd);
             nextButton.click();
 
-
             //switch back to main window
             driver.switchTo().window(mainWindowHandle);
+            
+            loginButton.click();
 
             (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(pSearch));
         }

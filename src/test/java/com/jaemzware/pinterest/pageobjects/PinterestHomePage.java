@@ -41,7 +41,7 @@ public class PinterestHomePage extends BasePageObject {
     @FindBy(css="div[data-grid-item=true]:nth-child(5)")
     private WebElement fifthResult;
 
-    @FindBy(css="div[data-grid-item=true]")
+    @FindBy(css="div[data-test-id=pin]")
     private List<WebElement> resultsList;
 
     @FindBy(css="div.article")
@@ -50,10 +50,10 @@ public class PinterestHomePage extends BasePageObject {
     @FindBy(css="input[name=q]")
     private WebElement searchTextbox;
 
-    @FindBy(css="div.improvementsWrapper")
+    @FindBy(css="div.SearchImprovementsBar-OuterScrollContainer")
     private WebElement searchImprovementsWrapper;
 
-    @FindBy(css="div.improvementsWrapper > div > div:nth-child(1) > div > div > div:nth-child(1) > a")
+    @FindBy(css="a[data-test-id=SearchGuide")
     private WebElement firstSearchImprovement;
 
     public String URL = "https://pinterest.com";
@@ -117,20 +117,22 @@ public class PinterestHomePage extends BasePageObject {
         Random rand = new Random();
 
         int randomNum = rand.nextInt((4 - 1) + 1) + 1;
+        
+        WebElement pinToClick = resultsList.get(randomNum);
 
         try {
-            resultsList.get(randomNum).click();
+            pinToClick.click();
         }
         catch(WebDriverException wdx){
             //scroll down a little bit to click below the bottom of the visible page
             ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 500)");
-            resultsList.get(randomNum).click();
+            pinToClick.click();
         }
-
-        PinterestViewerPage viewerPage = new PinterestViewerPage(driver);
-
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(viewerPage.getSaveButton()));
-
-        return viewerPage;
+        
+        PinterestViewerPage viewer = new PinterestViewerPage(driver);
+        
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.stalenessOf(pinToClick));
+        
+        return new PinterestViewerPage(driver);
     }
 }
