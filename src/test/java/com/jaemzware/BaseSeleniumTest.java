@@ -28,7 +28,7 @@ public class BaseSeleniumTest {
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
-        if(1==2) {
+        if(1==1) {
             //Before each test, launch a new Chrome Browser
             System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
             driver = new ChromeDriver();

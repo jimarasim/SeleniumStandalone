@@ -7,10 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
 public class PinterestViewerPage extends BasePageObject {
 
-    @FindBy(css="div.SaveButton")
+    @FindBy(css="div.closeupActionBar div.saveButtonRight div.SaveButton")
     private WebElement saveButton;
 
     @FindBy(xpath="//div[@role='button']//div[contains(text(),'Test')]")
