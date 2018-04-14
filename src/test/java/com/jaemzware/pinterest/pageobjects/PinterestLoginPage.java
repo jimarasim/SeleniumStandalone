@@ -30,8 +30,8 @@ public class PinterestLoginPage extends BasePageObject {
     @FindBy(xpath="//span[contains(text(),'Next')]")
     private WebElement nextButton;
 
-    private final String uid="jaemzware@gmail.com";
-    private final String pwd = "g00g732112";
+    private final String uid="fake@google.com";
+    private final String pwd = "password";
 
     public PinterestLoginPage(WebDriver driver){
         super(driver);
