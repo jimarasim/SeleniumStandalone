@@ -5,8 +5,8 @@ import com.jaemzware.pinterest.pageobjects.PinterestHomePage;
 import com.jaemzware.pinterest.pageobjects.PinterestLoginPage;
 import com.jaemzware.pinterest.pageobjects.PinterestProfilePage;
 import com.jaemzware.pinterest.pageobjects.PinterestViewerPage;
-import org.junit.Assert;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 public class PinterestPinTest extends BaseSeleniumTest {
 

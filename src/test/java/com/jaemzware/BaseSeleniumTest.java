@@ -1,9 +1,7 @@
 package com.jaemzware;
 
 import org.apache.commons.io.FileUtils;
-import org.testng.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.testng.annotations.*;
 
@@ -12,6 +10,8 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by jameskarasim on 6/25/17.
@@ -28,10 +28,15 @@ public class BaseSeleniumTest {
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
-        //Before each test, launch a new Chrome Browser
-        System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
-        driver = new ChromeDriver();
-        driver = new Augmenter().augment(driver); //for screenshots
+        if(1==2) {
+            //Before each test, launch a new Chrome Browser
+            System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
+            driver = new ChromeDriver();
+        } else {
+            System.setProperty("webdriver.gecko.driver", "geckodriver");
+            driver = new FirefoxDriver();
+            driver = new Augmenter().augment(driver); //for screenshots
+        }
 
         //maximize window
         driver.manage().window().maximize();
