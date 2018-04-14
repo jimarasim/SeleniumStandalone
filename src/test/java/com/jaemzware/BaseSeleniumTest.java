@@ -1,15 +1,13 @@
 package com.jaemzware;
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.Augmenter;
-import org.testng.annotations.*;
+import static com.jaemzware.Utilities.DateStamp;
 
-import java.io.File;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.Augmenter;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -20,29 +18,18 @@ public class BaseSeleniumTest {
 
     protected WebDriver driver = null;
 
-    public enum OsType {
-        WINDOWS, MAC, UNIX
-    }
-
     public PrintWriter writer = null;
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
-        if(1==1) {
-            //Before each test, launch a new Chrome Browser
-            System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
-            driver = new ChromeDriver();
-        } else {
-            System.setProperty("webdriver.gecko.driver", "geckodriver");
-            driver = new FirefoxDriver();
-            driver = new Augmenter().augment(driver); //for screenshots
-        }
+        driver = StartDriver();
 
         //maximize window
         driver.manage().window().maximize();
 
-        //open a new file for writing
-        writer = new PrintWriter("index.htm", "UTF-8");
+        //open a new file for writing html report
+        String fileName = "index" + DateStamp() + ".htm";
+        writer = new PrintWriter(fileName, "UTF-8");
         writer.write("<html><head></head><body>");
     }
 
@@ -57,53 +44,44 @@ public class BaseSeleniumTest {
         writer.flush();
         writer.close();
     }
-
-    protected String ScreenShot() {
-        String path="";
-        String fileName = "";
-
-        try {
-            // take the screen shot
-            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-            // get path to the working directory
-            String workingDir = System.getProperty("user.dir");
-
-            // generate a unique file name
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-            Date date = new Date();
-            String dateStamp = dateFormat.format(date);
-            // String fileName = GetOsType().equals(OsType.WINDOWS)?workingDir.replace("\\","\\\\")+
-            // "\\screenshot"+dateStamp+".png":workingDir + "/screenshot"+dateStamp+".png";
-            path = GetOsType().equals(OsType.WINDOWS) ? workingDir + "\\screenshot" + dateStamp + ".png"
-                    : workingDir + "/";
-
-            fileName = "screenshot" + dateStamp + ".png";
-
-            // save the file
-            FileUtils.copyFile(scrFile, new File(path+fileName));
-        } catch (Exception ex) {
-            System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
+    
+    /**
+     * StartDriver
+     * 
+     * Checks command line for desired browser type, and launches the browser.
+     * 
+     * @return WebDriver pointed to the specified browser
+     */
+    private WebDriver StartDriver() throws Exception{
+        WebDriver driverToLaunch = null;
+        BrowserType browserToStart = BrowserType.CHROME;  //default browser to chrome if not specified
+        
+        //CHECK COMMAND LINE FOR SPECIFIED BROWSER
+        String specifiedBrowser = System.getProperty("browser");
+        
+        if (specifiedBrowser != null) {
+            try {
+                browserToStart = BrowserType.valueOf(specifiedBrowser);
+            } catch (IllegalArgumentException iaex) {
+                throw new Exception("'" + specifiedBrowser + "' IS NOT A SUPPORTED BROWSER.");
+            }
         }
-
-        return fileName;
-    }
-
-    protected OsType GetOsType() throws Exception {
-        // get the os
-        String os = System.getProperty("os.name").toLowerCase();
-
-        // set the system property for chromedriver depending on the os
-        if (os.contains("win")) {
-            return OsType.WINDOWS;
-        } else if (os.contains("mac")) {
-            return OsType.MAC;
-        } else if (os.contains("nix") || os.contains("nux") || os.indexOf("aix") > 0) {
-            return OsType.UNIX;
-        } else {
-            throw new Exception("UNSUPPORTED OPERATING SYSTEM:" + os);
+        
+        switch(browserToStart) {
+            case CHROME:
+                System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
+                driverToLaunch = new ChromeDriver();
+                break;
+            case FIREFOX:
+                System.setProperty("webdriver.gecko.driver", "geckodriver");
+                driverToLaunch = new FirefoxDriver();
+                break;
+            default:
+                driverToLaunch = null;
+                break;
         }
-
+  
+        return driverToLaunch;
     }
 }
 

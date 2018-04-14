@@ -1,5 +1,7 @@
 package com.jaemzware.pinterest.tests;
 
+import static com.jaemzware.Utilities.ScreenShot;
+
 import com.jaemzware.BaseSeleniumTest;
 import com.jaemzware.pinterest.pageobjects.PinterestHomePage;
 import com.jaemzware.pinterest.pageobjects.PinterestLoginPage;
@@ -20,9 +22,8 @@ public class PinterestSearchTest extends BaseSeleniumTest {
         home.searchForTerm("memes");
 
         //save a screenshot to the htm report
-        String screenshotFilename = ScreenShot();
+        String screenshotFilename = ScreenShot(driver);
         writer.write("<br /><img src='"+screenshotFilename+"' alt='after searching memes' /><br />");
-
 
         Assert.assertTrue(home.resultsListCount() > 2);
         Assert.assertTrue(home.IsHomeButtonEnabled());

@@ -1,5 +1,7 @@
 package com.jaemzware.pinterest.tests;
 
+import static com.jaemzware.Utilities.ScreenShot;
+
 import com.jaemzware.BaseSeleniumTest;
 import com.jaemzware.pinterest.pageobjects.PinterestHomePage;
 import com.jaemzware.pinterest.pageobjects.PinterestLoginPage;
@@ -21,7 +23,7 @@ public class PinterestExploreTest extends BaseSeleniumTest {
         home.clickExploreButton();
 
         //save off a screenshot and embed it in the htm report
-        String screenshotFilename = ScreenShot();
+        String screenshotFilename = ScreenShot(driver);
         writer.write("<br /><img src='"+screenshotFilename+"' alt='after clicking explore button' /><br />");
 
         Assert.assertTrue(home.IsExploreHeadingEnabled());
