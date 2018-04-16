@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.lessThan;
  */
 public class RESTAssuredTest {
 
-    String githubAccessSecret = "Git8Hub";
+    String githubAccessSecret = "";
     String githubAccessToken = "jimarasim";
 
     @BeforeClass

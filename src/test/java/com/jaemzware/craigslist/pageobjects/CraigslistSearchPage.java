@@ -18,6 +18,9 @@ public class CraigslistSearchPage extends BasePageObject {
 
     @FindBy(id="post")
     WebElement postToClassifieds;
+    
+    @FindBy(css="a[data-alltitle='all for sale']")
+    WebElement forSaleLink;
 
     public CraigslistSearchPage(WebDriver driver){
         super(driver);
@@ -41,5 +44,13 @@ public class CraigslistSearchPage extends BasePageObject {
         return new CraigslistClassifiedWizardPage(driver);
     }
 
-
+    public CraigslistResultsPage ClickForSaleLink() {
+        forSaleLink.click();
+        
+        CraigslistResultsPage resultsPage = new CraigslistResultsPage(driver);
+        
+        (new WebDriverWait(driver,10000)).until(ExpectedConditions.elementToBeClickable(new CraigslistResultsPage(driver).GetFirstResult()));
+        
+        return resultsPage;
+    }
 }

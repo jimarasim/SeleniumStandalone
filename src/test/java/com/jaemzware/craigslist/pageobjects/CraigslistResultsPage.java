@@ -33,6 +33,10 @@ public class CraigslistResultsPage extends BasePageObject {
 
         (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(searchButton));
     }
+    
+    public WebElement GetFirstResult() {
+        return firstResult;
+    }
 
     public CraigslistResultsPage PrintOutResults(){
 
@@ -49,8 +53,12 @@ public class CraigslistResultsPage extends BasePageObject {
         }
 
         firstResult.click();
+        
+        CraigslistPostPage postPage = new CraigslistPostPage(driver);
+        
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(postPage.GetBody()));
 
-        return new CraigslistPostPage(driver);
+        return postPage;
     }
 
 
