@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
  * Created by jameskarasim on 6/28/17.
  */
 public class CraigslistSearchTest extends BaseSeleniumTest {
-    @Test(groups={"craigslisttest","craigslistsearchandprintresultstest"})
+    @Test(groups={"craigslisttest","craigslistsearchtest"})
     public void SearchAndPrintResults(){
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);

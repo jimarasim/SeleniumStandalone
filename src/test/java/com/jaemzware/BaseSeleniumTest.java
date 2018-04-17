@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 /**
  * Created by jameskarasim on 6/25/17.
@@ -81,6 +82,9 @@ public class BaseSeleniumTest {
                 System.setProperty("webdriver.gecko.driver", "./grid/geckodriver");
                 driverToLaunch = new FirefoxDriver();
                 break;
+            case SAFARI:
+                driverToLaunch = new SafariDriver();
+                break;
             default:
                 driverToLaunch = null;
                 break;
@@ -92,6 +96,7 @@ public class BaseSeleniumTest {
         return driverToLaunch;
     }
     
+    //THIS METHOD STARTS THE BROWSERS THROUGH SELENIUM GRID. SCRIPTS TO START HUB AND NODES CAN BE FOUND IN ./grid
     private WebDriver StartGridDriver(BrowserType browserToStart) throws MalformedURLException {
         WebDriver driverToLaunch = null;
         
