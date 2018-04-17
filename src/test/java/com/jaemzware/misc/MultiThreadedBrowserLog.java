@@ -35,7 +35,7 @@ public class MultiThreadedBrowserLog extends Thread{
     @BeforeClass
     public static void BeforeClass(){
         //DOWNLOAD CHROMEDRIVER FROM http://chromedriver.storage.googleapis.com/index.html AND PLACE IN PROJECT DIRECTORY
-        System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
+        System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
     }
 
     @BeforeMethod

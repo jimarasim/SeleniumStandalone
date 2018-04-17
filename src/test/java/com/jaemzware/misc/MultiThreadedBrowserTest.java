@@ -19,7 +19,7 @@ public class MultiThreadedBrowserTest extends Thread{
     @BeforeClass
     public static void BeforeClass(){
         //DOWNLOAD CHROMEDRIVER FROM http://chromedriver.storage.googleapis.com/index.html AND PLACE IN PROJECT DIRECTORY
-        System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
+        System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
     }
 
     //THIS TEST LAUNCHES MULTIPLE BROWSERS TO VISIT ALL LINKS ON THE CRAIGSLIST HOME PAGE CONCURRENTLY

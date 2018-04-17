@@ -7,8 +7,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  * Created by jameskarasim on 6/25/17.
@@ -66,20 +70,41 @@ public class BaseSeleniumTest {
             }
         }
         
+        //CHECK COMMAND LINE IF GRID IS BEING USED
+        if(System.getProperty("grid") == null) {
         switch(browserToStart) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "chromedrivermac"); // FOR MAC
+                System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
                 driverToLaunch = new ChromeDriver();
                 break;
             case FIREFOX:
-                System.setProperty("webdriver.gecko.driver", "geckodriver");
+                System.setProperty("webdriver.gecko.driver", "./grid/geckodriver");
                 driverToLaunch = new FirefoxDriver();
                 break;
             default:
                 driverToLaunch = null;
                 break;
         }
+        } else {
+            driverToLaunch = StartGridDriver(browserToStart);
+        }
   
+        return driverToLaunch;
+    }
+    
+    private WebDriver StartGridDriver(BrowserType browserToStart) throws MalformedURLException {
+        WebDriver driverToLaunch = null;
+        
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setBrowserName(browserToStart.browserName);
+        cap.setPlatform(browserToStart.platform);
+        cap.setVersion(browserToStart.version);
+        
+        String host = System.getProperty("host")!=null ? System.getProperty("host") : "http://localhost";
+        String port = System.getProperty("port")!=null ? System.getProperty("port") : "4444";
+
+        driverToLaunch = new RemoteWebDriver(new URL(host + ":" + port + "/wd/hub"), cap);
+        
         return driverToLaunch;
     }
 }
