@@ -43,7 +43,9 @@ public class BaseSeleniumTest {
     @AfterMethod(alwaysRun = true)
     public void AfterTest(ITestResult testResult){
         if (testResult.getStatus() == ITestResult.FAILURE) {
-            Utilities.ScreenShot(driver);
+            String screenshotFilename = Utilities.ScreenShot(driver);
+            writer.println("<H1>SCREENSHOT OF TEST FAILURE:</H1>");
+            writer.println("<img src='"+screenshotFilename+"' />");
         }
         
         //After each test, destroy the Chrome Browser
