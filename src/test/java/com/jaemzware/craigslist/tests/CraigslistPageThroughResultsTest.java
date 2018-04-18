@@ -19,7 +19,10 @@ public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
     @Test(groups={"craigslisttest","craigslistpagethroughresultstest"})
     public void CraigslistPageThroughResults() throws Exception{
         //check if a search term was specified with -DaString
-        String searchTerm = System.getProperty("aString")==null?"skateboard":System.getProperty("aString");
+        String searchTerm = System.getProperty("aString");
+        if(searchTerm==null || searchTerm.isEmpty()) {
+            searchTerm = "skateboard";
+        }
               
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
@@ -28,7 +31,7 @@ public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
 
         //check if max results was specified with -DaNumber
         int maxResults = 0;
-        if(System.getProperty("aNumber")!=null){
+        if(System.getProperty("aNumber")!=null && !System.getProperty("aNumber").isEmpty()){
             maxResults = Integer.parseInt(System.getProperty("aNumber"));
         }
 
