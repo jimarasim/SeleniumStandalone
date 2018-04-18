@@ -41,7 +41,7 @@ public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
         for(int i=0;i<allResultUrls.size();i++){
 
             //break if max results was specified
-            if(maxResults > 0 && i > maxResults){
+            if(maxResults > 0 && i >= maxResults){
                 break;
             }
 

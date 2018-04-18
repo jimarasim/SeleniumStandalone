@@ -23,6 +23,8 @@ public class BaseSeleniumTest {
     protected WebDriver driver = null;
 
     public PrintWriter writer = null;
+    
+    private String fileName = "";
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
@@ -32,7 +34,7 @@ public class BaseSeleniumTest {
         driver.manage().window().maximize();
 
         //open a new file for writing html report
-        String fileName = "index" + DateStamp() + ".htm";
+        fileName = "index" + DateStamp() + ".htm";
         writer = new PrintWriter(fileName, "UTF-8");
         writer.write("<html><head></head><body>");
     }
@@ -47,6 +49,8 @@ public class BaseSeleniumTest {
         writer.write("</body></html>");
         writer.flush();
         writer.close();
+        
+        System.out.println("REPORT GENERATED: " + fileName);
     }
     
     /**
