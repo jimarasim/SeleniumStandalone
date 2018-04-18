@@ -10,15 +10,20 @@ import java.util.List;
 
 /**
  * Created by jameskarasim on 7/5/17.
+ * 
+ *  mvn -Dgroups=craigslistpagethroughresultstest -DaString="Pink Floyd" -DaNumber=10 test
  */
 public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
 
 
     @Test(groups={"craigslisttest","craigslistpagethroughresultstest"})
     public void CraigslistPageThroughResults() throws Exception{
+        //check if a search term was specified with -DaString
+        String searchTerm = System.getProperty("aString")==null?"skateboard":System.getProperty("aString");
+              
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
-        CraigslistResultsPage resultsPage = searchPage.PerformSearch("melvins");
+        CraigslistResultsPage resultsPage = searchPage.PerformSearch(searchTerm);
         List<String> allResultUrls = resultsPage.GetResultUrls();
 
         //check if max results was specified with -DaNumber

@@ -21,7 +21,7 @@ import java.util.List;
 public class AmazonTest extends BaseSeleniumTest
 {
     private final String accountsMenuId = "nav-link-accountList";
-    private final String firstGiftXpath = "//*[@id=\"infinite-scroll-page-0\"]/ul/il[1]/a";
+    private final String firstGiftXpath = "//*[@id=\"infinite-scroll-page-0\"]/ul/li[1]/a";
     private final String giftTitleId = "title";
 
     //THIS TEST DEMONSTRATES THE FOLLOWING SELENIUM FUNCTIONALITY:

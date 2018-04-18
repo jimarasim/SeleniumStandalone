@@ -62,10 +62,11 @@ public class CraigslistPostPage extends BasePageObject {
 
     public void GetAndWriteDetails(String href, PrintWriter writer){
         driver.get(href);
-        writer.println("<a target='_blank' href='"+href+"'>"+href+"</a>");
+        writer.println("<a target='_blank' href='"+href+"'>"+href+"</a><br />");
         writer.println("DISPLAY DATE:"+displayDate.getText()+"<br />");
         writer.println("TITLE:"+title.getText()+"<br />");
         writer.println("BODY:"+body.getText()+"<br />");
+        writer.println("EMAIL:"+GetReplyEmail()+"<br />");
 
         if(IsElementEnabled(image)){
             writer.println("<img src='"+image.getAttribute("src")+"'><br />");
