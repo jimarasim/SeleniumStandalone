@@ -14,6 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.ITestResult;
 
 /**
  * Created by jameskarasim on 6/25/17.
@@ -40,7 +41,11 @@ public class BaseSeleniumTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void AfterTest(){
+    public void AfterTest(ITestResult testResult){
+        if (testResult.getStatus() == ITestResult.FAILURE) {
+            Utilities.ScreenShot(driver);
+        }
+        
         //After each test, destroy the Chrome Browser
         driver.quit();
         driver = null;
