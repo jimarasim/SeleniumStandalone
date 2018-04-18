@@ -30,8 +30,8 @@ public class BaseSeleniumTest {
     public void BeforeTest() throws Exception{
         driver = StartDriver();
 
-        //maximize window
-        driver.manage().window().maximize();
+        //maximize window (NEED TO USE OPTIONS IN CHROME TO MAXIMIZE INSTEAD)
+        //driver.manage().window().maximize();
 
         //open a new file for writing html report
         fileName = "index" + DateStamp() + ".htm";
