@@ -33,6 +33,9 @@ public class CraigslistPostPage extends BasePageObject {
     @FindBy(css="p.reply-email-address > a")
     WebElement replyEmailAddress;
     
+    @FindBy(css="p.reply-tel-number")
+    WebElement replyPhoneNumber;
+    
     @FindBy(css="aside.reply-flap")
     WebElement replyFlap;
     
@@ -67,7 +70,7 @@ public class CraigslistPostPage extends BasePageObject {
         String titleText = title.getText();
         writer.println("TITLE:"+titleText+"<br />"); System.out.println("TITLE:"+titleText);
         writer.println("BODY:"+body.getText()+"<br />");
-        writer.println("EMAIL:"+GetReplyEmail()+"<br />");
+        writer.println(GetReplyInfo()+"<br />");
 
         if(IsElementEnabled(image)){
             writer.println("<img src='"+image.getAttribute("src")+"'><br />");
@@ -75,20 +78,25 @@ public class CraigslistPostPage extends BasePageObject {
         writer.println("<hr />");
     }
     
-    public String GetReplyEmail() {
+    public String GetReplyInfo() {
         String emailAddress = "";
+        String phoneNumber = "";
         
         if(IsElementEnabled(replyButton)) {
             replyButton.click();
             
-            (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(replyFlap));
+            (new WebDriverWait(driver,30)).until(ExpectedConditions.elementToBeClickable(replyFlap));
             
             if(IsElementEnabled(replyEmailAddress)) {
                 emailAddress = replyEmailAddress.getText();
-            }            
+            }     
+            
+            if(IsElementEnabled(replyPhoneNumber)) {
+                phoneNumber = replyPhoneNumber.getText();
+            }
         }
         
-        return emailAddress;
+        return "EMAIL: "+emailAddress+" PHONE:"+phoneNumber;
     }
     
     public void ClickNextLink() {

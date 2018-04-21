@@ -20,7 +20,7 @@ public class CraigslistGetReplyInfoTest extends BaseSeleniumTest {
     
     //GETS EMAIL ADDRESSES FROM 10 DIFFERENT POSTINGS
     @Test(groups={"craigslisttest","craigslistgetreplyinfotest"})
-    public void GetReplyEmail() throws Exception{
+    public void GetReplyInfo() throws Exception{
         driver.get("https://seattle.craigslist.org");
         
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
@@ -28,7 +28,7 @@ public class CraigslistGetReplyInfoTest extends BaseSeleniumTest {
         CraigslistPostPage postPage = resultsPage.ClickFirstResult();
         
         for(int i=0;i<10;i++) {
-            String email = postPage.GetReplyEmail();
+            String email = postPage.GetReplyInfo();
 
             System.out.println(email);
             

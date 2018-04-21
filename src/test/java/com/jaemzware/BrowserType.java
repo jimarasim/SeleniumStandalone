@@ -11,7 +11,7 @@ public enum BrowserType {
     //NON-GRID: FOR NON-GRID, JUST SPECIFYING CHROME, FIREFOX, OR SAFARI WORKS ON MAC
     //FIREFOX: ONLY WORKS WITH GECKODRIVER NOW
     CHROME("chrome","",Platform.MAC),  //REQUIRES CHROMEDRIVER
-    SAFARI("safari","",Platform.MAC), //REQUIRES SAFARI => ADVANCED => DEVELOP => ALLOW REMOTE AUTOMATION, EXTENSION, CERTIFICATE https://itisatechiesworld.wordpress.com/2015/04/15/steps-to-get-selenium-webdriver-running-on-safari-browser/
+    SAFARI("safari","",Platform.MAC), //REQUIRES SAFARI => ADVANCED => DEVELOP => ALLOW REMOTE AUTOMATION, EXTENSION http://selenium-release.storage.googleapis.com/index.html?path=2.48/, CERTIFICATE https://itisatechiesworld.wordpress.com/2015/04/15/steps-to-get-selenium-webdriver-running-on-safari-browser/
     FIREFOX("firefox","",Platform.MAC); //REQUIRES GECKODRIVER
     
     public final String browserName;
