@@ -25,7 +25,7 @@ public class AppiumTest {
         //Before each test, launch a new Chrome Browser
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("platformVersion", "10.2");
+        capabilities.setCapability("platformVersion", "11.3");
         capabilities.setCapability("deviceName", "iPhone Simulator");
         capabilities.setCapability("app", "/Users/jameskarasim/Desktop/Digitease.app"); //xcode -> clean -> build -> products folder -> show in finder -> move .app to desktop
 
