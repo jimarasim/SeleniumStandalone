@@ -83,7 +83,6 @@ public class Utilities {
             // save the file
             FileUtils.copyFile(scrFile, new File(path + fileName));
             
-            System.out.println("SCREENSHOT TAKEN:" + fileName);
         } catch (Exception ex) {
             System.out.println("COMMON.SCREENSHOT FAILED:" + ex.getMessage());
         }

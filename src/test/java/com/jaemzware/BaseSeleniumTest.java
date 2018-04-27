@@ -150,7 +150,6 @@ public class BaseSeleniumTest {
         logString.append("<table>");
 
         LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
-        System.out.println("BROWSER LOGS:" + browserLog.getAll().size());
         if (browserLog.getAll().size() > 0) {
             logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
             logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
