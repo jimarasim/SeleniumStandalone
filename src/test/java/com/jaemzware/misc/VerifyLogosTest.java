@@ -6,6 +6,7 @@
 package com.jaemzware.misc;
 
 import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.BrowserType;
 import static com.jaemzware.Utilities.ScreenShot;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,10 @@ import org.testng.annotations.Test;
 /**
  *
  * @author jameskarasim
+ * 
+ * sample command line:
+ * mvn -Dgroups=verifylogostest -DaLink="http://www.wilburellis.com" -DaLinkToFollow="wilburellis.com" -DaLogoXpath="//img[@class='logo']" test
+ * mvn -Dgroups=verifylogostest -DaLink="https://www.seattlerules.com" -DaLinkToFollow="seattlerules.com" -DaLogoXpath="//a[@rel='home']" test
  */
 public class VerifyLogosTest extends BaseSeleniumTest{
     
@@ -25,6 +30,7 @@ public class VerifyLogosTest extends BaseSeleniumTest{
         String link = System.getProperty("aLink");
         String linkToFollow = System.getProperty("aLinkToFollow");
         String logoXpath = System.getProperty("aLogoXpath");
+        String fileSS;
         
         if(link == null || link.isEmpty()) {
             throw new Exception("PLEASE SPECIFY -DaLink");
@@ -41,25 +47,31 @@ public class VerifyLogosTest extends BaseSeleniumTest{
         //NAVIGATE TO PAGE
         driver.get(link);
         
-        System.out.println("HERE");
-        
         //COMPILE LIST OF HREFS
         List<WebElement> linksToVisit = driver.findElements(By.xpath("//a[contains(@href,'"+linkToFollow+"')]"));
-        List<String> urls = new ArrayList<String>();
-        for(WebElement we:linksToVisit) {
+        List<String> urls = new ArrayList<>();
+        urls.add(driver.getCurrentUrl());
+        linksToVisit.forEach((we) -> {
             urls.add(we.getAttribute("href"));
-        }
+        });
         
         //VISIT EACH HREF AND CHECK FOR LOGO AND PRINT A SCREENSHOT
         for(String url:urls) {
+            writer.println("<hr />");
             driver.get(url);
-            if(driver.findElements(By.xpath(logoXpath)).size() == 0) {
-                writer.println("MISSING LOGO AT:" + url + "<br />");
+            if(driver.findElements(By.xpath(logoXpath)).isEmpty()) {
+                writer.println("MISSING LOGO "+logoXpath+" AT:<a href='"+url+"' target='_blank'>" + url + "</a><br />");
             }
             
-            String fileSS = ScreenShot(driver);
+            //PRINT BROWSER LOGS IF CHROME
+            if(browserToStart == BrowserType.CHROME) {
+                System.out.println("HERE");
+                writer.println(ExtractJSLogs());
+            }
             
-            writer.println("<img src='"+fileSS+"' /><br />");
+            fileSS = ScreenShot(driver);
+            
+            writer.println("<a href='"+url+"' target='_blank'><img src='"+fileSS+"' /></a><br />");
         }
     }
     

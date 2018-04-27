@@ -9,8 +9,15 @@ import org.testng.annotations.BeforeMethod;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Level;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.logging.LogEntries;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -25,14 +32,13 @@ public class BaseSeleniumTest {
 
     public PrintWriter writer = null;
     
+    public BrowserType browserToStart= BrowserType.CHROME;;
+    
     private String fileName = "";
 
     @BeforeMethod(alwaysRun = true)
     public void BeforeTest() throws Exception{
         driver = StartDriver();
-
-        //maximize window (NEED TO USE OPTIONS IN CHROME TO MAXIMIZE INSTEAD)
-        //driver.manage().window().maximize();
 
         //open a new file for writing html report
         fileName = "index" + DateStamp() + ".htm";
@@ -69,7 +75,6 @@ public class BaseSeleniumTest {
      */
     private WebDriver StartDriver() throws Exception{
         WebDriver driverToLaunch = null;
-        BrowserType browserToStart = BrowserType.CHROME;  //default browser to chrome if not specified
         
         //CHECK COMMAND LINE FOR SPECIFIED BROWSER
         String specifiedBrowser = System.getProperty("browser");
@@ -87,7 +92,17 @@ public class BaseSeleniumTest {
         switch(browserToStart) {
             case CHROME:
                 System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
-                driverToLaunch = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                
+                //START MAXIMIZED
+                options.addArguments("start-maximized");
+                
+                //LOG BROWSER ERRORS
+                LoggingPreferences loggingprefs = new LoggingPreferences();
+                loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                options.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+                
+                driverToLaunch = new ChromeDriver(options);
                 break;
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver", "./grid/geckodriver");
@@ -116,12 +131,80 @@ public class BaseSeleniumTest {
         cap.setPlatform(browserToStart.platform);
         cap.setVersion(browserToStart.version);
         
+        if(browserToStart == BrowserType.CHROME) {
+            LoggingPreferences loggingprefs = new LoggingPreferences();
+            loggingprefs.enable(LogType.BROWSER, Level.ALL);
+            cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
+        }
+        
         String host = System.getProperty("host")!=null ? System.getProperty("host") : "http://localhost";
         String port = System.getProperty("port")!=null ? System.getProperty("port") : "4444";
 
         driverToLaunch = new RemoteWebDriver(new URL(host + ":" + port + "/wd/hub"), cap);
         
         return driverToLaunch;
+    }
+    
+    protected String ExtractJSLogs() {
+        StringBuilder logString = new StringBuilder();
+        logString.append("<table>");
+
+        LogEntries browserLog = driver.manage().logs().get(LogType.BROWSER);
+        System.out.println("BROWSER LOGS:" + browserLog.getAll().size());
+        if (browserLog.getAll().size() > 0) {
+            logString.append("<tr><td colspan=2><h3>BROWSER</h3></td></tr>");
+            logString.append("<tr><td>LEVEL</td><td>MESSAGE</td></tr>");
+            logString.append(WriteLogEntryRows(browserLog));
+        } else {
+            logString.append("<tr><td colspan=2>No BROWSER log entries found.</td></tr>");
+        }
+        
+        logString.append("</table>");
+        return logString.toString();
+    }
+    // ERROR LOGGING - TAKES LONG - ADD CAPABILITY WHEN CREATING driver BEFORE USING
+
+    /**
+     *
+     * @param entries
+     * @return
+     */
+    private String WriteLogEntryRows(LogEntries entries) {
+        StringBuilder logEntryRows = new StringBuilder();
+
+        String errorLevel;
+        for (LogEntry entry : entries) {
+            errorLevel = entry.getLevel().toString();
+            logEntryRows.append("<tr>");
+
+            // error level color coding
+            if (errorLevel.contains("SEVERE")) {
+                logEntryRows.append("<td class='severe'><b>");
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            }
+            else if (errorLevel.contains("WARNING")) {
+                logEntryRows.append("<td class='warning'><b>");
+
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else if (errorLevel.contains("INFO")) {
+                logEntryRows.append("<td class='info'><b>");
+
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else if (errorLevel.contains("FINE")) {
+                logEntryRows.append("<td class='info'><b>");
+
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            } else {
+                logEntryRows.append("<td><b>");
+                logEntryRows.append(errorLevel).append("</b></td>");
+                logEntryRows.append("<td>").append(entry.getMessage()).append("</td></tr>");
+            }
+        }
+        return logEntryRows.toString();
     }
 }
 
