@@ -1,6 +1,7 @@
 package com.jaemzware.craigslist.pageobjects;
 
 import com.jaemzware.BasePageObject;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,6 +42,9 @@ public class CraigslistPostPage extends BasePageObject {
     
     @FindBy(css="a.next")
     WebElement nextLink;
+
+    @FindBy(css="div.lbclose")
+    WebElement errorDialogCloseButton;
     
     public CraigslistPostPage(WebDriver driver){
         super(driver);
@@ -84,8 +88,15 @@ public class CraigslistPostPage extends BasePageObject {
         
         if(IsElementEnabled(replyButton)) {
             replyButton.click();
-            
-            (new WebDriverWait(driver,30)).until(ExpectedConditions.elementToBeClickable(replyFlap));
+
+            try {
+                (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(replyFlap));
+            } catch(TimeoutException tex) {
+                if(IsElementEnabled(errorDialogCloseButton)) {
+                    errorDialogCloseButton.click();
+                    return "ERROR ENCOUNTERED OPENING REPLY FLAP";
+                }
+            }
             
             if(IsElementEnabled(replyEmailAddress)) {
                 emailAddress = replyEmailAddress.getText();
