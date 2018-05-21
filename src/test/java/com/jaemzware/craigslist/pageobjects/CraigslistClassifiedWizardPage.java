@@ -130,7 +130,7 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
     public CraigslistClassifiedWizardPage pickSeattle() {
         seattleRadioButton.click();
 
-        (new WebDriverWait(driver,10000)).until(ExpectedConditions.elementToBeClickable(postingTitleInput));
+        (new WebDriverWait(driver,10000)).until(ExpectedConditions.elementToBeClickable(forSaleByOwnerRadioButton));
 
         return this;
     }

@@ -15,9 +15,9 @@ public class CraigslistPostAdTest extends BaseSeleniumTest {
         driver.get("https://seattle.craigslist.org");
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
         CraigslistClassifiedWizardPage wizardPage = searchPage.PostToClassified();
+        wizardPage = wizardPage.pickSeattle();
         wizardPage = wizardPage.pickForSaleByOwnerAndContinue();
         wizardPage = wizardPage.pickAutoAndContinue();
-        wizardPage = wizardPage.pickSeattle();
         wizardPage = wizardPage.fillOutPartialAutoPostingAndContinue();
         Assert.assertTrue(wizardPage.getErrorTextElement().getText().contains("Some required information is missing or incorrect."));
     }
