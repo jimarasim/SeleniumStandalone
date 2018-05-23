@@ -76,7 +76,7 @@ public class PinterestLoginPage extends BasePageObject {
             
             loginButton.click();
 
-            (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(pSearch));
+            (new WebDriverWait(driver, 10000)).until(ExpectedConditions.elementToBeClickable(pSearch));
         }
     }
      

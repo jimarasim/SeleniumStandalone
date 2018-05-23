@@ -14,7 +14,7 @@ public class PinterestHomePage extends BasePageObject {
     @FindBy(xpath="//div[contains(text(),'Home')]")
     private WebElement HomeButton;
 
-    @FindBy(css="svg._mh")
+    @FindBy(css="div[aria-label='Home']")
     private WebElement pButton;
 
     @FindBy(xpath="//div[contains(text(),'Explore')]")

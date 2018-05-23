@@ -11,7 +11,7 @@ import org.openqa.selenium.By;
 
 public class PinterestViewerPage extends BasePageObject {
 
-    @FindBy(css="div.closeupActionBar div.saveButtonRight div.SaveButton")
+    @FindBy(css="div[data-test-id='SaveButton']")
     private WebElement saveButton;
 
     @FindBy(xpath="//div[@role='button']//div[contains(text(),'Test')]")

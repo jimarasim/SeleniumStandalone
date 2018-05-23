@@ -20,7 +20,7 @@ public class PinterestProfilePage extends BasePageObject {
     @FindBy(css="div[data-grid-item=true]:nth-child(2)")
     private WebElement firstResult;
 
-    @FindBy(css="div.cardWrapper")
+    @FindBy(css="div[data-test-id='board-Test']")
     private WebElement firstBoard;
 
     public PinterestProfilePage(WebDriver driver){
