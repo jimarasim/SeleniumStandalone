@@ -47,7 +47,7 @@ public class PinterestLoginPage extends BasePageObject {
             pGoogleConnectButton.click();
 
             //wait for the second window to open up
-            (new WebDriverWait(driver, 5000)).until(new ExpectedCondition<Boolean>() {
+            (new WebDriverWait(driver, 5)).until(new ExpectedCondition<Boolean>() {
                 @Override
                 public Boolean apply(WebDriver d) {
                     return driver.getWindowHandles().size() == 2;
@@ -64,10 +64,10 @@ public class PinterestLoginPage extends BasePageObject {
             }
 
             //login to google window.
-            (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(googleEmail));
+            (new WebDriverWait(driver, 5)).until(ExpectedConditions.elementToBeClickable(googleEmail));
             googleEmail.sendKeys((String)creds.get("username"));
             nextButton.click();
-            (new WebDriverWait(driver, 5000)).until(ExpectedConditions.elementToBeClickable(googlePassword));
+            (new WebDriverWait(driver, 5)).until(ExpectedConditions.elementToBeClickable(googlePassword));
             googlePassword.sendKeys((String)creds.get("password"));
             nextButton.click();
 
@@ -76,7 +76,7 @@ public class PinterestLoginPage extends BasePageObject {
             
             loginButton.click();
 
-            (new WebDriverWait(driver, 10000)).until(ExpectedConditions.elementToBeClickable(pSearch));
+            (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(pSearch));
         }
     }
      

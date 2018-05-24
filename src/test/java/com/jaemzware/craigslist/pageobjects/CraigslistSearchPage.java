@@ -39,7 +39,7 @@ public class CraigslistSearchPage extends BasePageObject {
     public CraigslistClassifiedWizardPage PostToClassified() {
         postToClassifieds.click();
 
-        (new WebDriverWait(driver,10000)).until(ExpectedConditions.elementToBeClickable(new CraigslistClassifiedWizardPage(driver).getContinueButton()));
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(new CraigslistClassifiedWizardPage(driver).getContinueButton()));
 
         return new CraigslistClassifiedWizardPage(driver);
     }
@@ -49,7 +49,7 @@ public class CraigslistSearchPage extends BasePageObject {
         
         CraigslistResultsPage resultsPage = new CraigslistResultsPage(driver);
         
-        (new WebDriverWait(driver,10000)).until(ExpectedConditions.elementToBeClickable(new CraigslistResultsPage(driver).GetFirstResult()));
+        (new WebDriverWait(driver,10)).until(ExpectedConditions.elementToBeClickable(new CraigslistResultsPage(driver).GetFirstResult()));
         
         return resultsPage;
     }
