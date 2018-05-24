@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="PinterestTests" verbose="1" >
+    <test name="Regression1" preserve-order="false">
+        <classes> <!--can also do by package and include exclude test methods-->
+
+            <class name="com.jaemzware.pinterest.tests.PinterestExploreTest" />
+            <class name="com.jaemzware.pinterest.tests.PinterestPinTest" />
+            <class name="com.jaemzware.pinterest.tests.PinterestScrollTest" />
+            <class name="com.jaemzware.pinterest.tests.PinterestSearchTest" />
+
+        </classes>
+    </test>
+</suite>
