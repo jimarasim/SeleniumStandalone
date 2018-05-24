@@ -26,8 +26,13 @@ public class CraigslistGetReplyInfoTest extends BaseSeleniumTest {
         CraigslistSearchPage searchPage = new CraigslistSearchPage(driver);
         CraigslistResultsPage resultsPage = searchPage.ClickForSaleLink();
         CraigslistPostPage postPage = resultsPage.ClickFirstResult();
-        
-        for(int i=0;i<10;i++) {
+
+        int maxResults = 10;
+        if(System.getProperty("aNumber")!=null && !System.getProperty("aNumber").isEmpty()){
+            maxResults = Integer.parseInt(System.getProperty("aNumber"));
+        }
+
+        for(int i=0;i<maxResults;i++) {
             String email = postPage.GetReplyInfo();
 
             System.out.println(email);

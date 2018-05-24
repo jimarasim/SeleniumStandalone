@@ -1,9 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Craigslist SearchTest" verbose="1" >
+<suite name="Craigslist SearchTest" verbose="1"  parallel="methods" thread-count="5">
     <test name="Regression1" preserve-order="false">
         <classes> <!--can also do by package and include exclude test methods-->
 
+            <class name="com.jaemzware.craigslist.tests.CraigslistPostAdTest" />
+            <class name="com.jaemzware.craigslist.tests.CraigslistGetReplyInfoTest" />
+            <class name="com.jaemzware.craigslist.tests.CraigslistPageThroughResultsTest" />
+            <class name="com.jaemzware.craigslist.tests.CraigslistViewFirstResultTest" />
             <class name="com.jaemzware.craigslist.tests.CraigslistSearchTest" />
 
         </classes>

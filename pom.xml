@@ -24,6 +24,7 @@
                     <suiteXmlFiles>
                         <!--use this to specify the test suite xml file to run-->
                         <!--to run a single or selected suites, use
+                        mvn -Dsurefire.suiteXmlFiles=craigslisttestng.xml -DaNumber=2 test
                         mvn -Dsurefire.suiteXmlFiles=googletestng.xml test
                         mvn -Dsurefire.suiteXmlFiles=pinteresttestng.xml -Dusername=****@gmail.com -Dpassword=**** test
                         mvn -Dsurefire.suiteXmlFiles=craigslisttestng.xml,googletestng.xml test
