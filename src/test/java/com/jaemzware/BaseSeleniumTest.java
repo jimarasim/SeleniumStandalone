@@ -1,6 +1,7 @@
 package com.jaemzware;
 
 import static com.jaemzware.Utilities.DateStamp;
+import static com.jaemzware.Utilities.GetOsType;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -92,7 +93,13 @@ public class BaseSeleniumTest {
         if(System.getProperty("grid") == null) {
         switch(browserToStart) {
             case CHROME:
-                System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
+                //CHECK OS TYPE AND USE APPROPRIATE CHROME DRIVER
+                if(Utilities.GetOsType() == OsType.UNIX) {
+                    System.setProperty("webdriver.chrome.driver", "./grid/chromedriverlinux"); // FOR MAC
+                } else {
+                    System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR LINUX
+                }
+
                 ChromeOptions options = new ChromeOptions();
 
                 if(System.getProperty("headless")==null) {
