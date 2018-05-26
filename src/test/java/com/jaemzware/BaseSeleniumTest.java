@@ -3,6 +3,7 @@ package com.jaemzware;
 import static com.jaemzware.Utilities.DateStamp;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -93,9 +94,14 @@ public class BaseSeleniumTest {
             case CHROME:
                 System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
                 ChromeOptions options = new ChromeOptions();
-                
-                //START MAXIMIZED
-                options.addArguments("start-maximized");
+
+                if(System.getProperty("headless")==null) {
+                    //START MAXIMIZED
+                    options.addArguments("start-maximized");
+                } else {
+                    //START HEADLESS
+                    options.setHeadless(true);
+                }
                 
                 //LOG BROWSER ERRORS
                 LoggingPreferences loggingprefs = new LoggingPreferences();
@@ -106,7 +112,14 @@ public class BaseSeleniumTest {
                 break;
             case FIREFOX:
                 System.setProperty("webdriver.gecko.driver", "./grid/geckodriver");
-                driverToLaunch = new FirefoxDriver();
+
+                FirefoxOptions ffoptions = new FirefoxOptions();
+
+                if(System.getProperty("headless")!=null) {
+                    ffoptions.setHeadless(true);
+                }
+
+                driverToLaunch = new FirefoxDriver(ffoptions);
                 break;
             case SAFARI:
                 driverToLaunch = new SafariDriver();
