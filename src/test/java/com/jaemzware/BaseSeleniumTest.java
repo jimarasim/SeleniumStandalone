@@ -27,6 +27,9 @@ import org.testng.ITestResult;
 
 /**
  * Created by jameskarasim on 6/25/17.
+ *
+ * PARAMETERS RECOGNIZED
+ * -Dbrowser -Dgrid -Dheadless -Dhost -Dport
  */
 public class BaseSeleniumTest {
 
@@ -145,20 +148,21 @@ public class BaseSeleniumTest {
     //THIS METHOD STARTS THE BROWSERS THROUGH SELENIUM GRID. SCRIPTS TO START HUB AND NODES CAN BE FOUND IN ./grid
     private WebDriver StartGridDriver(BrowserType browserToStart) throws MalformedURLException {
         WebDriver driverToLaunch = null;
-        
+
+        //SET DESIRED CAPABILITIES FOR GRID NODE ACCORDING TO BROWSER SPECIFIED
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setBrowserName(browserToStart.browserName);
         cap.setPlatform(browserToStart.platform);
         cap.setVersion(browserToStart.version);
 
-        System.out.println(browserToStart.browserName.toString());
-
-        if(browserToStart.browserName.toString().toLowerCase().contains("CHROME")) {
+        //TURN ON LOGGING IF THIS IS CHROME
+        if(browserToStart.browserName.toString().toLowerCase().contains("chrome")) {
             LoggingPreferences loggingprefs = new LoggingPreferences();
             loggingprefs.enable(LogType.BROWSER, Level.ALL);
             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
         }
-        
+
+        //CHECK IF GRID HUB HOST AND PORT WERE SPECIFIED
         String host = System.getProperty("host")!=null ? System.getProperty("host") : "http://localhost";
         String port = System.getProperty("port")!=null ? System.getProperty("port") : "4444";
 
