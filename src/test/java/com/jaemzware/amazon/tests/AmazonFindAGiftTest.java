@@ -1,22 +1,11 @@
 package com.jaemzware.amazon.tests;
 
 import com.jaemzware.BaseSeleniumTest;
-import com.jaemzware.amazon.pageobjects.AmazonGiftsPage;
+import com.jaemzware.amazon.pageobjects.AmazonGiftResultsPage;
 import com.jaemzware.amazon.pageobjects.AmazonHomePage;
 import com.jaemzware.amazon.pageobjects.AmazonProductPage;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -35,10 +24,9 @@ public class AmazonFindAGiftTest extends BaseSeleniumTest
     @Test
     public void FindAGift() throws Exception{
         //load the amazon site
-        driver.get("https://amazon.com");
-
         AmazonHomePage homePage = new AmazonHomePage(driver);
-        AmazonGiftsPage giftsPage = homePage.clickFindGiftMenuItem();
+        homePage = homePage.navigate();
+        AmazonGiftResultsPage giftsPage = homePage.clickFindGiftMenuItem();
         AmazonProductPage productPage = giftsPage.clickFirstGift();
 
         Assert.assertTrue(!productPage.getProductTitle().isEmpty());

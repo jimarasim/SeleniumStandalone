@@ -28,8 +28,10 @@
                         mvn -Dsurefire.suiteXmlFiles=googletestng.xml test
                         mvn -Dsurefire.suiteXmlFiles=pinteresttestng.xml -Dusername=****@gmail.com -Dpassword=**** test
                         mvn -Dsurefire.suiteXmlFiles=craigslisttestng.xml,googletestng.xml test
+                        mvn -Dsurefire.suiteXmlFiles=amazontestng.xml test
                         -->
                         <!-- TestNG suite XML files -->
+                        <suiteXmlFile>amazontestng.xml</suiteXmlFile>
                         <suiteXmlFile>craigslisttestng.xml</suiteXmlFile>
                         <suiteXmlFile>googletestng.xml</suiteXmlFile>
                         <suiteXmlFile>pinteresttestng.xml</suiteXmlFile>

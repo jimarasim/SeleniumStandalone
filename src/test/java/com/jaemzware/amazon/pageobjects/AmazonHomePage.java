@@ -1,7 +1,7 @@
 package com.jaemzware.amazon.pageobjects;
 
 import com.jaemzware.BasePageObject;
-import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -17,11 +17,14 @@ public class AmazonHomePage extends BasePageObject{
     @FindBy(linkText = "Find a Gift")
     WebElement findGiftMenuItem;
 
+    @FindBy(id="twotabsearchtextbox")
+    WebElement searchTextBox;
+
     public AmazonHomePage(WebDriver driver) {
         super(driver);
     }
 
-    public AmazonGiftsPage clickFindGiftMenuItem() {
+    public AmazonGiftResultsPage clickFindGiftMenuItem() {
         //hover over the accounts menu
         Actions action = new Actions(driver);
         action.moveToElement(accountsMenu).build().perform();
@@ -33,10 +36,25 @@ public class AmazonHomePage extends BasePageObject{
         action.moveToElement(findGiftMenuItem).click().build().perform();
 
         //wait for the first gift to appear
-        AmazonGiftsPage giftsPage = new AmazonGiftsPage(driver);
+        AmazonGiftResultsPage giftsPage = new AmazonGiftResultsPage(driver);
         giftsPage = giftsPage.waitForFirstGiftToAppear();
 
         return giftsPage;
+    }
+
+    public AmazonHomePage navigate() {
+        driver.get("https://amazon.com");
+
+        return this;
+    }
+
+    public AmazonSearchResultsPage searchForTerm(String searchTerm) {
+        searchTextBox.sendKeys(searchTerm);
+        searchTextBox.sendKeys(Keys.RETURN);
+
+        AmazonSearchResultsPage searchResultsPage = new AmazonSearchResultsPage(driver);
+        searchResultsPage.waitForFirstResult();
+        return searchResultsPage;
     }
 
 }
