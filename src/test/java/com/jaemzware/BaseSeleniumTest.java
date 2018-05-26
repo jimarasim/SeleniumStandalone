@@ -150,8 +150,10 @@ public class BaseSeleniumTest {
         cap.setBrowserName(browserToStart.browserName);
         cap.setPlatform(browserToStart.platform);
         cap.setVersion(browserToStart.version);
-        
-        if(browserToStart == BrowserType.CHROME) {
+
+        System.out.println(browserToStart.browserName.toString());
+
+        if(browserToStart.browserName.toString().toLowerCase().contains("CHROME")) {
             LoggingPreferences loggingprefs = new LoggingPreferences();
             loggingprefs.enable(LogType.BROWSER, Level.ALL);
             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);

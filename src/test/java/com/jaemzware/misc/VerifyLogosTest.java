@@ -59,6 +59,7 @@ public class VerifyLogosTest extends BaseSeleniumTest{
         for(String url:urls) {
             writer.println("<hr />");
             driver.get(url);
+            System.out.println(url);
             if(driver.findElements(By.xpath(logoXpath)).isEmpty()) {
                 writer.println("MISSING LOGO "+logoXpath+" AT:<a href='"+url+"' target='_blank'>" + url + "</a><br />");
             }
