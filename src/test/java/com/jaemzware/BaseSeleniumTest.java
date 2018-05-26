@@ -115,7 +115,7 @@ public class BaseSeleniumTest {
                 
                 //LOG BROWSER ERRORS
                 LoggingPreferences loggingprefs = new LoggingPreferences();
-                loggingprefs.enable(LogType.BROWSER, Level.ALL);
+                loggingprefs.enable(LogType.BROWSER, Level.SEVERE);
                 options.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
                 
                 driverToLaunch = new ChromeDriver(options);
@@ -150,17 +150,18 @@ public class BaseSeleniumTest {
         WebDriver driverToLaunch = null;
 
         //SET DESIRED CAPABILITIES FOR GRID NODE ACCORDING TO BROWSER SPECIFIED
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setBrowserName(browserToStart.browserName);
-        cap.setPlatform(browserToStart.platform);
-        cap.setVersion(browserToStart.version);
+        DesiredCapabilities cap = new DesiredCapabilities();;
 
         //TURN ON LOGGING IF THIS IS CHROME
         if(browserToStart.browserName.toString().toLowerCase().contains("chrome")) {
             LoggingPreferences loggingprefs = new LoggingPreferences();
-            loggingprefs.enable(LogType.BROWSER, Level.ALL);
+            loggingprefs.enable(LogType.BROWSER, Level.SEVERE);
             cap.setCapability(CapabilityType.LOGGING_PREFS, loggingprefs);
         }
+
+        cap.setBrowserName(browserToStart.browserName);
+        cap.setPlatform(browserToStart.platform);
+        cap.setVersion(browserToStart.version);
 
         //CHECK IF GRID HUB HOST AND PORT WERE SPECIFIED
         String host = System.getProperty("host")!=null ? System.getProperty("host") : "http://localhost";

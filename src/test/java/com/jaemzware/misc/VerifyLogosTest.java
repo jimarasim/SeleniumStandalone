@@ -65,7 +65,7 @@ public class VerifyLogosTest extends BaseSeleniumTest{
             }
             
             //PRINT BROWSER LOGS IF CHROME
-            if(browserToStart == BrowserType.CHROME) {
+            if(browserToStart.browserName.toString().toLowerCase().contains("chrome")) {
                 writer.println(ExtractJSLogs());
             }
             
