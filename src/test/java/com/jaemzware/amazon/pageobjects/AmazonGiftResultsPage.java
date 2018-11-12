@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AmazonGiftResultsPage extends BasePageObject {
 
-    @FindBy(xpath="//*[@id=\"infinite-scroll-page-0\"]/ul/li[1]/a")
+    @FindBy(xpath="//figure[@class=\"asin-container\"]/a")
     WebElement firstGift;
 
     public AmazonGiftResultsPage(WebDriver driver) {

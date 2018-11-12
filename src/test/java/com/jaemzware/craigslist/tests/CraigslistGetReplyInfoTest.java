@@ -33,9 +33,12 @@ public class CraigslistGetReplyInfoTest extends BaseSeleniumTest {
         }
 
         for(int i=0;i<maxResults;i++) {
-            String email = postPage.GetReplyInfo();
+            String replyInfo = postPage.GetReplyInfo();
+            String src = postPage.GetMainImageSrc();
 
-            System.out.println(email);
+            System.out.println(replyInfo);
+            writer.println(replyInfo + "<br />");
+            writer.println("<img src='"+src+"' /><br />");
             
             postPage.ClickNextLink();
         }

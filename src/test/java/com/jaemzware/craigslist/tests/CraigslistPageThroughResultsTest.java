@@ -21,7 +21,7 @@ public class CraigslistPageThroughResultsTest extends BaseSeleniumTest {
         //check if a search term was specified with -DaString
         String searchTerm = System.getProperty("aString");
         if(searchTerm==null || searchTerm.isEmpty()) {
-            searchTerm = "skateboard";
+            searchTerm = "manufactured home";
         }
               
         driver.get("https://seattle.craigslist.org");

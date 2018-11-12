@@ -1,0 +1,1 @@
+mvn -Dtest=CraigslistPageThroughResultsTest -DaString=couch -DaNumber=1000 test

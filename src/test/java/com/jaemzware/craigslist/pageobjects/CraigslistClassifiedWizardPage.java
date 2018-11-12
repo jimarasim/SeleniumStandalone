@@ -42,50 +42,26 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
     @FindBy(id="PostingBody")
     WebElement postingBodyInput;
 
-    @FindBy(id="auto_year")
-    WebElement autoYearSelect;
-
     @FindBy(name="auto_make_model")
     WebElement makeModelInput;
 
-    @FindBy(id="auto_vin")
+    @FindBy(name="auto_vin")
     WebElement autoVinInput;
 
-    @FindBy(id="auto_miles")
+    @FindBy(name="auto_miles")
     WebElement autoMilesInput;
 
-    @FindBy(id="language")
+    @FindBy(name="language")
     WebElement languageSelect;
-
-    @FindBy(id="condition")
-    WebElement conditionSelect;
-
-    @FindBy(id="auto_cylinders")
-    WebElement cylindersSelect;
-
-    @FindBy(id="auto_drivetrain")
-    WebElement driveTrainSelect;
-
-    @FindBy(id="auto_fuel_type")
-    WebElement fuelTypeSelect;
-
-    @FindBy(id="auto_paint")
-    WebElement paintSelect;
-
-    @FindBy(id="auto_size")
-    WebElement sizeSelect;
-
-    @FindBy(id="auto_title_status")
-    WebElement titleStatusSelect;
-
-    @FindBy(id="auto_transmission")
-    WebElement transmissionSelect;
-
-    @FindBy(id="auto_bodytype")
-    WebElement bodyTypeSelect;
 
     @FindBy(css="span.err")
     WebElement errorText;
+
+    @FindBy(css="[name='condition']+span")
+    WebElement condition;
+
+    @FindBy(xpath="//li[contains(text(),'excellent')]")
+    WebElement conditionExcellent;
 
     public WebElement getErrorTextElement() {
         return errorText;
@@ -135,7 +111,7 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
         return this;
     }
 
-    public CraigslistClassifiedWizardPage fillOutPartialAutoPostingAndContinue() {
+    public CraigslistClassifiedWizardPage fillOutPartialAutoPostingAndContinue() throws Exception {
         postingTitleInput.sendKeys("Honda Civic 2010");
         postingPriceInput.sendKeys("12000");
         specificLocationInput.sendKeys("West Seattle");
@@ -143,20 +119,13 @@ public class CraigslistClassifiedWizardPage extends BasePageObject {
         postingBodyInput.sendKeys("This is the best car in the world. I really don't want to sell it, but" +
                 "I must. So please buy it. It has a CD player and aux cord input. It only has 4 cylinders, so doesn't " +
                 "go too fast, but if you drive stick, you know how to get speed when you need it.");
-        (new Select(this.autoYearSelect)).selectByValue("2010");
+
         makeModelInput.sendKeys("Honda Civic");
         autoVinInput.sendKeys("V4N3KJ34JBHGJKSKD");
         autoMilesInput.sendKeys("40000");
         (new Select(this.languageSelect)).selectByValue("5");
-        (new Select(this.conditionSelect)).selectByValue("40");
-        (new Select(this.cylindersSelect)).selectByValue("2");
-        (new Select(this.driveTrainSelect)).selectByValue("1");
-        (new Select(this.fuelTypeSelect)).selectByValue("1");
-        (new Select(this.paintSelect)).selectByValue("1");
-        (new Select(this.sizeSelect)).selectByValue("1");
-        (new Select(this.titleStatusSelect)).selectByValue("1");
-        (new Select(this.transmissionSelect)).selectByValue("1");
-        (new Select(this.bodyTypeSelect)).selectByValue("8");
+        condition.click();
+        conditionExcellent.click();
 
         continueButton.click();
 

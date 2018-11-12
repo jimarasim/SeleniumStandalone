@@ -1,6 +1,7 @@
 package com.jaemzware.amazon.tests;
 
 import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.Utilities;
 import com.jaemzware.amazon.pageobjects.AmazonHomePage;
 import com.jaemzware.amazon.pageobjects.AmazonProductPage;
 import com.jaemzware.amazon.pageobjects.AmazonSearchResultsPage;
@@ -19,6 +20,10 @@ public class AmazonSearchTest extends BaseSeleniumTest{
 
         Assert.assertTrue(!productPage.getProductTitle().isEmpty());
         System.out.println(productPage.getProductTitle());
+
+        //add a screenshot to the report
+        String screenshotFilename = Utilities.ScreenShot(driver);
+        writer.println("<img src='"+screenshotFilename+"' />");
 
     }
 }

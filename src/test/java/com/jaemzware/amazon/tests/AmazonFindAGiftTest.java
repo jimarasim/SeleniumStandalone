@@ -1,6 +1,7 @@
 package com.jaemzware.amazon.tests;
 
 import com.jaemzware.BaseSeleniumTest;
+import com.jaemzware.Utilities;
 import com.jaemzware.amazon.pageobjects.AmazonGiftResultsPage;
 import com.jaemzware.amazon.pageobjects.AmazonHomePage;
 import com.jaemzware.amazon.pageobjects.AmazonProductPage;
@@ -32,6 +33,9 @@ public class AmazonFindAGiftTest extends BaseSeleniumTest
         Assert.assertTrue(!productPage.getProductTitle().isEmpty());
 
         System.out.println(productPage.getProductTitle());
+
+        String screenshotFilename = Utilities.ScreenShot(driver);
+        writer.println("<img src='"+screenshotFilename+"' />");
     }
 
 }

@@ -68,7 +68,7 @@ public class BaseSeleniumTest {
         writer.flush();
         writer.close();
         
-        System.out.println("REPORT GENERATED: " + fileName);
+        System.out.println("open " + fileName);
     }
     
     /**

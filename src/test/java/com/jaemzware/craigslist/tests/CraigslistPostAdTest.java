@@ -18,7 +18,12 @@ public class CraigslistPostAdTest extends BaseSeleniumTest {
         wizardPage = wizardPage.pickSeattle();
         wizardPage = wizardPage.pickForSaleByOwnerAndContinue();
         wizardPage = wizardPage.pickAutoAndContinue();
-        wizardPage = wizardPage.fillOutPartialAutoPostingAndContinue();
+        try {
+            wizardPage = wizardPage.fillOutPartialAutoPostingAndContinue();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
         Assert.assertTrue(wizardPage.getErrorTextElement().getText().contains("Some required information is missing or incorrect."));
     }
 }

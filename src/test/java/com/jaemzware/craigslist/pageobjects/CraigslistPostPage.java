@@ -45,6 +45,12 @@ public class CraigslistPostPage extends BasePageObject {
 
     @FindBy(css="div.lbclose")
     WebElement errorDialogCloseButton;
+
+    @FindBy(css="div.slide.first.visible img")
+    WebElement mainImage;
+
+    @FindBy(css="span.price")
+    WebElement price;
     
     public CraigslistPostPage(WebDriver driver){
         super(driver);
@@ -69,19 +75,41 @@ public class CraigslistPostPage extends BasePageObject {
 
     public void GetAndWriteDetails(String href, PrintWriter writer){
         driver.get(href);
-        writer.println("<a target='_blank' href='"+href+"'>"+href+"</a><br />");
-        writer.println("DISPLAY DATE:"+displayDate.getText()+"<br />");
-        String titleText = title.getText();
-        writer.println("TITLE:"+titleText+"<br />"); System.out.println("TITLE:"+titleText);
-        writer.println("BODY:"+body.getText()+"<br />");
-        writer.println(GetReplyInfo()+"<br />");
 
-        if(IsElementEnabled(image)){
-            writer.println("<img src='"+image.getAttribute("src")+"'><br />");
+        try {
+            writer.println("<a target='_blank' href='" + href + "'>" + href + "</a><br />");
+            if(IsElementEnabled(price)) {
+                writer.println("PRICE:" + price.getText() + "<br />");
+            }
+            if(IsElementEnabled(displayDate)) {
+                writer.println("DISPLAY DATE:" + displayDate.getText() + "<br />");
+            }
+            String titleText = title.getText();
+            writer.println("TITLE:" + titleText + "<br />");
+            System.out.println("TITLE:" + titleText);
+            writer.println("BODY:" + body.getText() + "<br />");
+            //writer.println(GetReplyInfo() + "<br />");
+
+            if (IsElementEnabled(image)) {
+                writer.println("<img src='" + image.getAttribute("src") + "'><br />");
+            }
+        } catch(Exception ex) {
+            writer.println("EXCEPTION:"+ex.getMessage()+"<br />");
         }
         writer.println("<hr />");
+
     }
-    
+
+    public String GetMainImageSrc() {
+        String src = "";
+
+        if(IsElementEnabled(mainImage)) {
+            src = mainImage.getAttribute("src");
+        }
+
+        return src;
+    }
+
     public String GetReplyInfo() {
         String emailAddress = "";
         String phoneNumber = "";
