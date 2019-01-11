@@ -77,7 +77,7 @@ public class MultiThreadedAllInternalLinks extends Thread {
                 }
             } catch (StaleElementReferenceException serex) {
                 System.out.println("STALE ELEMENT EXCEPTION");
-                continue;
+                break;
             }
         }
     }
