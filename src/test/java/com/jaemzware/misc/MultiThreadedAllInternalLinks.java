@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -25,7 +27,10 @@ public class MultiThreadedAllInternalLinks extends Thread {
         System.setProperty("webdriver.chrome.driver", "./grid/chromedrivermac"); // FOR MAC
     }
 
-    //THIS TEST LAUNCHES MULTIPLE BROWSERS TO VISIT ALL LINKS ON THE CRAIGSLIST HOME PAGE CONCURRENTLY
+    /**
+     * THIS TEST LAUNCHES MULTIPLE BROWSERS TO VISIT ALL LINKS ON A SEED PAGE CONCURRENTLY
+     * @throws Exception
+     */
     @Test
     public void MultiBrowserTest() throws Exception{
         //launch one browser to get unique urls from a seed page
@@ -46,10 +51,24 @@ public class MultiThreadedAllInternalLinks extends Thread {
             Thread.sleep(5000);
         }
 
-        //report pages not found
+        //report pages visited and pages not found
+        PrintWriter writer = new PrintWriter("linkcrawler.htm", "UTF-8");
+        writer.write("<html><head></head><body>");
+
+        writer.write("VISITED "+visited.size()+" UNIQUE PAGES, "+pageNotFound.size()+" PAGES NOT FOUND <br />\r\n");
+
+        for(String key:visited.keySet()) {
+            writer.write("VISITED: <a href='"+key+"' target='_blank'>"+key+"</a> REFERRER: <a href='" + visited.get(key) + "' target='_blank'>"+visited.get(key)+"</a><br />\r\n");
+        }
+
         for(String key:pageNotFound.keySet()) {
             System.out.println("PAGE NOT FOUND: "+key+" REFERRER: " + pageNotFound.get(key));
+            writer.write("PAGE NOT FOUND: <a href='"+key+"' target='_blank'>"+key+"</a> REFERRER: <a href='" + pageNotFound.get(key) + "' target='_blank'>"+pageNotFound.get(key)+"</a><br />\r\n");
         }
+
+        writer.write("</body></html>");
+        writer.flush();
+        writer.close();
 
     }
 
@@ -121,12 +140,11 @@ public class MultiThreadedAllInternalLinks extends Thread {
         if(toVisit.isEmpty()) {
             return null;
         } else {
-            for(String key:toVisit.keySet()) {
-                hrefToVisit[0] = key;
-                hrefToVisit[1] = toVisit.remove(key);
-                visited.put(hrefToVisit[0],hrefToVisit[1]);
-                break;
-            }
+            Enumeration enumeration = toVisit.keys();
+            hrefToVisit[0] = (String)enumeration.nextElement();
+            hrefToVisit[1] = toVisit.remove(hrefToVisit[0]);
+            visited.put(hrefToVisit[0],hrefToVisit[1]);
+
             return hrefToVisit;
         }
     }
