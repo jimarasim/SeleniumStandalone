@@ -2,3 +2,5 @@
 target/
 *.htm/
 *.png/
+*.htm
+*.png

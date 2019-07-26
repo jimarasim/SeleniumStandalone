@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AmazonSearchResultsPage extends BasePageObject{
 
-    @FindBy(css="#result_0 a.a-link-normal")
+    @FindBy(css="div.s-result-list a.a-link-normal")
     WebElement firstResult;
 
     public AmazonSearchResultsPage(WebDriver driver) {
