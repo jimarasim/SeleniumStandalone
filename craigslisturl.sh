@@ -1,1 +1,1 @@
-mvn -Dtest=CraigslistSearchUrlReportTest -DaString="https://seattle.craigslist.org/search/rea?search_distance=25&postal=98126&min_price=100000&max_price=300000&availabilityMode=0&housing_type=6&sale_date=all+dates" test
+mvn -Dtest=CraigslistSearchUrlReportTest -DaString="https://seattle.craigslist.org/search/ppa?query=microwave" test

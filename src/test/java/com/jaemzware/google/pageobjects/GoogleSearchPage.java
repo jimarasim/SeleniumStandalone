@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * Created by jameskarasim on 6/28/17.
  */
 public class GoogleSearchPage extends BasePageObject {
-    @FindBy(id="lst-ib")
+    @FindBy(name="q")
     private WebElement searchTextBox;
 
     public GoogleSearchPage(WebDriver driver){
